@@ -6,4 +6,7 @@ using System.Threading.Tasks;
 
 public class DirectionTile : Tile
 {
+    public DirectionTile(string filename, bool keepInCache = false, bool addCollider = false) : base(filename, keepInCache, addCollider)
+    {
+    }
 }
