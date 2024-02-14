@@ -10,7 +10,7 @@ class MenuTile : Sprite
 {
     public MenuTile() : base("uiAssets/square.png")
     {
-        // maybe have  
+        // use Level config to get level info
     }
 
     void Update()
