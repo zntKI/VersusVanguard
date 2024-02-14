@@ -3,13 +3,18 @@ using GXPEngine;
 
 class Ui : GameObject
 {
+
+    // menuTile array
+
     public Ui()
     {
-        Console.WriteLine("Ui initialized");
+        // title image
+        // background image
+        // background sound
     }
 
     void Update()
     {
-        // Empty
+        // logic for swapping between menuTiles
     }
 }
