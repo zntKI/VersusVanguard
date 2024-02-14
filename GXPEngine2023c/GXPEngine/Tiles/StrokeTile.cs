@@ -9,7 +9,7 @@ public class StrokeTile : Tile
     private bool isLeft;
     private float strokeLength;
 
-    public StrokeTile(string filename, float speed, float scaleIncrement, string soundPath, bool isLeft, float strokeLength) : base(filename, speed, scaleIncrement, soundPath)
+    public StrokeTile(string filename, bool isLeft, float speed, float scaleIncrement, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, scaleIncrement, shouldMoveLeft, soundPath)
     {
         this.isLeft = isLeft;
         this.strokeLength = strokeLength;
@@ -17,6 +17,6 @@ public class StrokeTile : Tile
 
     private void Update()
     {
-        Move(false);
+        Move();
     }
 }
