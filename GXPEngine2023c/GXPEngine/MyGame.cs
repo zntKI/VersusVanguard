@@ -4,12 +4,11 @@ using System.Drawing;
 
 public class MyGame : Game {
 	public MyGame() : base(800, 600, false)     // Create a window that's 800x600 and NOT fullscreen
-	{   
+	{
 		//Delete this later
-		//DirectionTile dirTile = new DirectionTile("dirTileLeftExample.png", 5f, .05f, "", true);
-		//dirTile.SetXY(width / 2 + dirTile.width, 0);
-		//AddChild(dirTile);
-	}
+		Level level = new Level(60);
+		AddChild(level);
+    }
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update() {
