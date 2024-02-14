@@ -6,7 +6,6 @@ class Ui : GameObject
 
     // menuTile array
     // dynamically load menuTiles
-    // somethign really funny
 
     public Ui()
     {
