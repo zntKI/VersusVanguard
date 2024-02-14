@@ -22,5 +22,6 @@ public class Level : GameObject
 	private void Update()
 	{ 
 		//Spawn the tile with the random sound from the list based on bpm
+		counterBeats += Time.deltaTime;
 	}
 }
