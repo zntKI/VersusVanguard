@@ -1,5 +1,5 @@
 using System;
-using GXPEngine.Core;
+using GXPEngine;
 
 class Ui : GameObject
 {
