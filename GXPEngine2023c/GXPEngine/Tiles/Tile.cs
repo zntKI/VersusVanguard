@@ -7,7 +7,31 @@ using System.Threading.Tasks;
 
 public class Tile : Sprite
 {
-    public Tile(string filename, bool keepInCache = false, bool addCollider = false) : base(filename, keepInCache, addCollider)
+    private const float sidewaysMoveAmount = .8f;
+
+    private float speed;
+    private float scaleIncrement;
+
+    private string soundPath;
+
+    public Tile(string filename, float speed, float scaleIncrement, string soundPath) : base(filename, false, false)
     {
+        SetOrigin(width / 2, height / 2);
+
+        this.speed = speed;
+        this.scaleIncrement = scaleIncrement;
+        this.soundPath = soundPath;
+    }
+
+    private void Update()
+    {
+        Move(true);
+    }
+
+    public virtual void Move(bool shouldMoveLeft)
+    {
+        x += shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount;
+        y += speed;
+        scale += scaleIncrement;
     }
 }
