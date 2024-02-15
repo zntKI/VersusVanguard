@@ -35,6 +35,9 @@ public class Tile : Sprite
     {
         x += shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount;
         y += speed;
+        if (y > game.height)
+            Destroy();
+
         scale += scaleIncrement;
     }
 }
