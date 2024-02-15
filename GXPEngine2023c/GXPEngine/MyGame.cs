@@ -1,9 +1,10 @@
 using System;
 using GXPEngine;
 using System.Drawing;
+using GXPEngine.Core;
 
 public class MyGame : Game {
-	public MyGame() : base(800, 600, false)     // Create a window that's 800x600 and NOT fullscreen
+	public MyGame() : base(1366, 768, false, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		//Delete this later
 		Level level = new Level(60);
