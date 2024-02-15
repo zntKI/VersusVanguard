@@ -1,4 +1,5 @@
 ﻿using GXPEngine;
+using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ public class Level : GameObject
 {
     //The different notes that can be played
     private List<Sound> melody;
+
+    private Vector2 leftDiscCoor = new Vector2(444, 640);
+    private Vector2 rightDiscCoor = new Vector2(920, 640);
 
     private int bpm;
 	private int timeBetweenBeatsMS;
@@ -25,8 +29,10 @@ public class Level : GameObject
 	{
 		this.bpm = bpm;
         timeBetweenBeatsMS = (60 / bpm) * 1000;
-        spawnTimeMin = timeBetweenBeatsMS / 2;
+        spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);//Possible difficulty adjustments
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
+
+        AddChild(new Sprite("Background_sketch.png", false, false));//Figure out better solution for background
 
         counterTimeSpawnTileMS = 0;
     }
@@ -48,33 +54,32 @@ public class Level : GameObject
             bool shouldTileMoveLeft = Utils.Random(1, 3) == 1;
 
             Tile tileToSpawn;
-            int tileToSpawnNum = Utils.Random(1, 4);
+            int tileToSpawnNum = Utils.Random(1, 4);//Dictates which tile to spawn
             switch (tileToSpawnNum)
             {
                 case 1:
                     {
                         //TODO: Fix this later:
-                        int dirNum = Utils.Random(1, 3);
+                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
                         string filename = dirNum == 1 ? "dirTileLeftExample" : "dirTileRightExample";
-                        tileToSpawn = new DirectionTile($"{filename}.png", dirNum == 1, 5f, .05f, shouldTileMoveLeft, "");
+                        tileToSpawn = new DirectionTile($"{filename}.png", dirNum == 1, 5f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                         break;
                     }
                 case 2:
                     {
                         //TODO: Fix this later:
-                        int dirNum = Utils.Random(1, 3);
+                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
                         string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
-                        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 5f, .05f, shouldTileMoveLeft, "", 0f/*TODO: Fix that later*/);
+                        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 5f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 0f/*TODO: Fix that later*/);
                         break;
                     }
                 case 3:
-                    tileToSpawn = new Tile("denyTileExample.png", 5f, .05f, shouldTileMoveLeft, "");
+                    tileToSpawn = new Tile("denyTileExample.png", 5f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                     break;
                 default:
                     throw new InvalidOperationException("Wrong number for spawning tiles");
             }
 
-            tileToSpawn.SetXY(shouldTileMoveLeft ? game.width / 2 - tileToSpawn.width : game.width / 2 + tileToSpawn.width, 0);
             AddChild(tileToSpawn);
 
             counterTimeSpawnTileMS = 0;
