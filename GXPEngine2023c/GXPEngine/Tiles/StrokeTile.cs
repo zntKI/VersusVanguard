@@ -1,4 +1,5 @@
-﻿using GXPEngine.Core;
+﻿using GXPEngine;
+using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,10 @@ public class StrokeTile : Tile
     private void Update()
     {
         Move();
+    }
+
+    public override int CheckPosition(int reactionDistance, Vector2 leftRecordCoor, Vector2 rightRecordCoor)
+    {
+        throw new NotImplementedException("Temporarily Stroke tiles don't exist in the game"); //Implement this after the first play testing session has passed
     }
 }

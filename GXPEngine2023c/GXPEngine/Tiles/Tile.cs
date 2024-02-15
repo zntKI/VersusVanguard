@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 public class Tile : Sprite
 {
-    private bool shouldMoveLeft;
+    protected bool shouldMoveLeft;
 
     private float speed;
     private float sidewaysMoveAmount;
@@ -51,5 +51,17 @@ public class Tile : Sprite
             Destroy();
 
         scale += scaleIncrement;
+    }
+
+    public virtual int CheckPosition(int reactionDistance, Vector2 leftRecordCoor, Vector2 rightRecordCoor)
+    {
+        int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
+
+        if (Input.GetKeyDown(Key.G) && distanceFromRecordCenter <= reactionDistance)
+        {
+            Destroy();
+            return reactionDistance - distanceFromRecordCenter;
+        }
+        return 0;
     }
 }
