@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 public class DirectionTile : Tile
 {
-    public DirectionTile(string filename, bool keepInCache = false, bool addCollider = false) : base(filename, keepInCache, addCollider)
+    private const float inputAmountMin = .5f;
+    private bool isLeft;
+
+    public DirectionTile(string filename, bool isLeft, float speed, float scaleIncrement, bool shouldMoveLeft, string soundPath) : base(filename, speed, scaleIncrement, shouldMoveLeft, soundPath)
     {
+        this.isLeft = isLeft;
+    }
+
+    private void Update()
+    {
+        Move();
     }
 }
