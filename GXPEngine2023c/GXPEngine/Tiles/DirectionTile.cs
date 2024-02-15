@@ -9,13 +9,13 @@ public class DirectionTile : Tile
     private const float inputAmountMin = .5f;
     private bool isLeft;
 
-    public DirectionTile(string filename, float speed, float scaleIncrement, string soundPath, bool isLeft) : base(filename, speed, scaleIncrement, soundPath)
+    public DirectionTile(string filename, bool isLeft, float speed, float scaleIncrement, bool shouldMoveLeft, string soundPath) : base(filename, speed, scaleIncrement, shouldMoveLeft, soundPath)
     {
         this.isLeft = isLeft;
     }
 
     private void Update()
     {
-        Move(false);
+        Move();
     }
 }
