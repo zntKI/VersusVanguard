@@ -47,6 +47,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="Ui\Ui.cs" />
+    <Compile Include="Ui\MenuTile.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
     <Compile Include="GXPEngine\GameObject.cs" />
