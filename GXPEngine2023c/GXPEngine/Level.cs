@@ -37,7 +37,7 @@ public class Level : GameObject
         spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);//Possible difficulty adjustments
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
 
-        AddChild(new Sprite("Background_sketch.png", false, false));//Figure out better solution for background
+        AddChild(new Sprite(this.assets + "/Background_sketch.png", false, false));//Figure out better solution for background
         
         //Temporary way to display score (think of a better way after the playtesting session)
         scoreDisplayer = new EasyDraw(200, 70, false);
@@ -79,7 +79,7 @@ public class Level : GameObject
                         //TODO: Fix this later:
                         int dirNum = Utils.Random(1, 3);//Dictates tile's direction
                         string filename = dirNum == 1 ? "dirTileLeftExample" : "dirTileRightExample";
-                        tileToSpawn = new DirectionTile($"{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                        tileToSpawn = new DirectionTile(this.assets + $"/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                         break;
                     }
                 //case 2: //Uncomment this after the first play testing session has passed
@@ -91,7 +91,7 @@ public class Level : GameObject
                 //        break;
                 //    }
                 case 2:
-                    tileToSpawn = new Tile("denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                    tileToSpawn = new Tile(this.assets + "/denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                     break;
                 default:
                     throw new InvalidOperationException("Wrong number for spawning tiles");

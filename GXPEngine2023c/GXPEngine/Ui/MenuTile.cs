@@ -10,7 +10,7 @@ using GXPEngine.Core;
 class MenuTile : Sprite
 {
 
-    public MenuTile( String filename, bool keepInCache=false, bool addCollider=true ) : base("uiAssets/SongTile_proto.png")
+    public MenuTile( String filename, bool keepInCache=false, bool addCollider=true ) : base("../../assets/uiAssets/SongTile_proto.png")
     {
         // use Level config to get level info
         if (Game.main == null) {
@@ -20,7 +20,7 @@ class MenuTile : Sprite
 			initializeFromTexture(Texture2D.GetInstance(filename, keepInCache));
     }
 
-    public MenuTile() : base("uiAssets/SongTile_proto.png")
+    public MenuTile() : base("../../assets/uiAssets/SongTile_proto.png")
     {
         // Empty
     }

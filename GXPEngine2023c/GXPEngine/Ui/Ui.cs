@@ -6,8 +6,8 @@ class Ui : GameObject
 {
 
     // menuTile array
-    Sprite titleImage = new Sprite("uiAssets/Title_proto.png");
-    Sprite backgroundImage = new Sprite("uiAssets/bg_proto.png");
+    Sprite titleImage;
+    Sprite backgroundImage;
     Sprite[] backgroundTiles = new Sprite[2];
     MenuTile[] menuTiles = new MenuTile[3];
     int tilesToRender;
@@ -26,7 +26,10 @@ class Ui : GameObject
     public Ui()
     {
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
-        menuTiles[0] = new MenuTile(this.assets+"/uiAssets/SongTile_proto.png");
+        titleImage = new Sprite(this.assets+"/uiAssets/Title_proto.png");
+        backgroundImage = new Sprite(this.assets+"/uiAssets/bg_proto.png");
+
+        menuTiles[0] = new MenuTile();
         menuTiles[1] = new MenuTile();
         menuTiles[2] = new MenuTile();
         tilesToRender = menuTiles.Length;
@@ -98,8 +101,8 @@ class Ui : GameObject
         }
 
         // render background and title
-        backgroundTiles[0] = new Sprite("uiAssets/SongTile_proto.png");
-        backgroundTiles[1] = new Sprite("uiAssets/SongTile_proto.png");
+        backgroundTiles[0] = new Sprite(this.assets+"/uiAssets/SongTile_proto.png");
+        backgroundTiles[1] = new Sprite(this.assets+"/uiAssets/SongTile_proto.png");
         parent.AddChild( backgroundImage );
         parent.AddChild( titleImage );
         parent.AddChild( backgroundTiles[0] );
