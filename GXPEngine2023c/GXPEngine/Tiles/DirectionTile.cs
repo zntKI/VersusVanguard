@@ -1,4 +1,5 @@
-﻿using GXPEngine.Core;
+﻿using GXPEngine;
+using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,18 @@ public class DirectionTile : Tile
     private void Update()
     {
         Move();
+    }
+
+    public override int CheckPosition(int reactionDistance, Vector2 leftRecordCoor, Vector2 rightRecordCoor)
+    {
+        int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
+
+        if (((isLeft && Input.GetKeyDown(Key.A)) || (!isLeft && Input.GetKeyDown(Key.D)))
+            && distanceFromRecordCenter <= reactionDistance)
+        {
+            Destroy();
+            return reactionDistance - distanceFromRecordCenter;
+        }
+        return 0;
     }
 }
