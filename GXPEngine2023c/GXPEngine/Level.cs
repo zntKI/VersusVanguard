@@ -2,6 +2,7 @@
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ public class Level : GameObject
     private int counterTimeSpawnTileMS;
 
     private int reactionDistance = 50;
+
     private int score;
+    private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
     public Level(int bpm)
     {
@@ -35,6 +38,15 @@ public class Level : GameObject
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
 
         AddChild(new Sprite("Background_sketch.png", false, false));//Figure out better solution for background
+        
+        //Temporary way to display score (think of a better way after the playtesting session)
+        scoreDisplayer = new EasyDraw(200, 70, false);
+        scoreDisplayer.TextSize(20);
+        scoreDisplayer.TextAlign(CenterMode.Center, CenterMode.Center);
+        scoreDisplayer.Fill(Color.Black);
+        scoreDisplayer.Text($"Score: {score}", true);
+        scoreDisplayer.SetXY(0, 0);
+        AddChild(scoreDisplayer);
 
         counterTimeSpawnTileMS = 0;
     }
@@ -44,6 +56,8 @@ public class Level : GameObject
         //Spawn the tile with the random sound from the list based on bpm
         ManageTileSpawning();
         CheckForInput();
+
+        scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
     }
 
     private void ManageTileSpawning()
