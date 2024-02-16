@@ -113,7 +113,6 @@ class Ui : GameObject
         renderedTiles[1] = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
         renderedTiles[2] = currentTile == 0 ? renderedTiles.Length-1 : currentTile - 1;
 
-        SetTileScale();
         SetTilePositions();
 
         // render menuTiles
@@ -129,32 +128,28 @@ class Ui : GameObject
         {
             if ( tile == currentTile) 
             {
-                menuTiles[tile].SetXY( bottomCenter[0]-menuTiles[tile].width/2 , bottomCenter[1]);
+                menuTiles[tile].SetScaleXY( 0.8f, 0.8f );
+                menuTiles[tile].SetXY( bottomCenter[0]-menuTiles[tile].width/2 , bottomCenter[1] );
+
             } else if ( tile == (currentTile+2)%3)
             {
+                menuTiles[tile].SetScaleXY( 0.5f, 0.5f );
                 menuTiles[tile].SetXY( bottomLeftUp[0]-menuTiles[tile].width/2, bottomLeftUp[1] );
 
             } else if ( tile == (currentTile+1)%3)
             {
+                menuTiles[tile].SetScaleXY( 0.5f, 0.5f );
                 menuTiles[tile].SetXY( bottomRightUp[0]-menuTiles[tile].width/2, bottomRightUp[1] );
 
             }             
         }
         
-        backgroundTiles[0].SetXY( bottomLeftBack[0]-backgroundTiles[0].width/2, bottomLeftBack[1] );
-        backgroundTiles[1].SetXY( bottomRightBack[0]-backgroundTiles[1].width/2, bottomRightBack[1] );
-    }
-
-    void SetTileScale()
-    {
-        // set scale of menuTiles
-        menuTiles[0].SetScaleXY( 0.8f, 0.8f );
-        menuTiles[1].SetScaleXY( 0.5f, 0.5f );
-        menuTiles[2].SetScaleXY( 0.5f, 0.5f );
-
         // set scale of backgroundTiles
         backgroundTiles[0].SetScaleXY( 0.3f, 0.3f );
         backgroundTiles[1].SetScaleXY( 0.3f, 0.3f );
+        
+        backgroundTiles[0].SetXY( bottomLeftBack[0]-backgroundTiles[0].width/2, bottomLeftBack[1] );
+        backgroundTiles[1].SetXY( bottomRightBack[0]-backgroundTiles[1].width/2, bottomRightBack[1] );
     }
 
 }
