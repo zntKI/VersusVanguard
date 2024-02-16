@@ -26,7 +26,7 @@ class Ui : GameObject
     public Ui()
     {
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
-        menuTiles[0] = new MenuTile();
+        menuTiles[0] = new MenuTile(this.assets+"/uiAssets/SongTile_proto.png");
         menuTiles[1] = new MenuTile();
         menuTiles[2] = new MenuTile();
         tilesToRender = menuTiles.Length;

@@ -9,6 +9,7 @@ namespace GXPEngine
 	/// </summary>
 	public abstract class GameObject : Transformable
 	{
+		public string assets = "../../assets";
 		public string name;
 		private Collider _collider;
 		
