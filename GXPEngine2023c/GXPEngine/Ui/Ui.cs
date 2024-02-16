@@ -26,10 +26,15 @@ class Ui : GameObject
     public Ui()
     {
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
-        menuTiles[0] = new MenuTile("uiAssets/Square.png");
-        menuTiles[1] = new MenuTile("uiAssets/Colors.png");
+        menuTiles[0] = new MenuTile();
+        menuTiles[1] = new MenuTile();
         menuTiles[2] = new MenuTile();
         tilesToRender = menuTiles.Length;
+
+        //debugging colors
+        menuTiles[0].SetColor( 0, 255, 0 );
+        menuTiles[1].SetColor( 255, 0, 0 );
+        menuTiles[2].SetColor( 0, 0, 255 );
 
         // title image
         // menuTiles[0].songimage;
