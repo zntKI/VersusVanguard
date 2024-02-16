@@ -30,12 +30,14 @@ public class Level : GameObject
     private int score;
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
-    public Level(int bpm)
+    public Level(int bpm, string beatFilePath)
     {
         this.bpm = bpm;
         timeBetweenBeatsMS = (60 / bpm) * 1000;
         spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);//Possible difficulty adjustments
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
+
+        new Sound(beatFilePath, false, true).Play();
 
         AddChild(new Sprite("Background_sketch.png", false, false));//Figure out better solution for background
         

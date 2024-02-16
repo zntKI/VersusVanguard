@@ -7,7 +7,7 @@ public class MyGame : Game {
 	public MyGame() : base(1366, 768, false, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		//Delete this later
-		Level level = new Level(60);
+		Level level = new Level(60, "60 BPM Four to the Floor.mp3");
 		AddChild(level);
     }
 
