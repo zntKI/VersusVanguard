@@ -120,28 +120,22 @@ class Ui : GameObject
 
     void SetTilePositions()
     {
-        // set position of menuTiles with respect to size of tiles
         foreach ( int tile in renderedTiles )
         {
-            if ( tile == currentTile ) {
-                menuTiles[tile].SetXY( bottomCenter[0], bottomCenter[1] );
-
-            }
-            if ( tile == previousTile )
+            if ( tile == currentTile) 
             {
-                menuTiles[tile].SetXY( bottomLeftUp[0], bottomLeftUp[1] );
-            }
-            
-            if ( tile == nextTile ) {
-                menuTiles[tile].SetXY( bottomRightUp[0], bottomRightUp[1] );
-            }
+                menuTiles[tile].SetXY( bottomCenter[0]-menuTiles[tile].width/2 , bottomCenter[1]);
+            } else if ( tile == (currentTile+2)%3)
+            {
+                menuTiles[tile].SetXY( bottomLeftUp[0]-menuTiles[tile].width/2, bottomLeftUp[1] );
+
+            } else if ( tile == (currentTile+1)%3)
+            {
+                menuTiles[tile].SetXY( bottomRightUp[0]-menuTiles[tile].width/2, bottomRightUp[1] );
+
+            }             
         }
         
-        // menuTiles[0].SetXY( bottomCenter[0]-menuTiles[0].width/2 , bottomCenter[1]);
-        // menuTiles[2].SetXY( bottomRightUp[0]-menuTiles[1].width/2, bottomRightUp[1] );
-        // menuTiles[1].SetXY( bottomLeftUp[0]-menuTiles[2].width/2, bottomLeftUp[1] );
-
-
         backgroundTiles[0].SetXY( bottomLeftBack[0]-backgroundTiles[0].width/2, bottomLeftBack[1] );
         backgroundTiles[1].SetXY( bottomRightBack[0]-backgroundTiles[1].width/2, bottomRightBack[1] );
     }
