@@ -10,9 +10,9 @@ public class Tile : Sprite
 {
     protected bool shouldMoveLeft;
 
-    private float speed;
-    private float sidewaysMoveAmount;
-    private float scaleIncrement;
+    protected float speed;
+    protected float sidewaysMoveAmount;
+    protected float scaleIncrement;
 
     private string soundPath;
 

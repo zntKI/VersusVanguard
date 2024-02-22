@@ -82,15 +82,15 @@ public class Level : GameObject
                         tileToSpawn = new DirectionTile(this.assets + $"/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                         break;
                     }
-                //case 2: //Uncomment this after the first play testing session has passed
-                //    {
-                //        //TODO: Fix this later:
-                //        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
-                //        string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
-                //        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 5f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 0f/*TODO: Fix that later*/);
-                //        break;
-                //    }
                 case 2:
+                    {
+                        //TODO: Fix this later:
+                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
+                        string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
+                        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 2f);
+                        break;
+                    }
+                case 3:
                     tileToSpawn = new Tile(this.assets + "/denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
                     break;
                 default:
