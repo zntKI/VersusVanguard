@@ -9,7 +9,7 @@ class Ui : GameObject
     Sprite titleImage;
     Sprite backgroundImage;
     Sprite[] backgroundTiles = new Sprite[2];
-    MenuTile[] menuTiles = new MenuTile[3];
+    MenuTile[] menuTiles = new MenuTile[4];
     int tilesToRender;
     int[] renderedTiles;
     int currentTile = 0;
@@ -18,6 +18,7 @@ class Ui : GameObject
     int[] bottomRightUp = new int[2]  { 1024, 360 };
     int[] bottomLeftBack = new int[2] { 512, 310 };
     int[] bottomRightBack = new int[2]{ 854, 310 };
+    int[] hidden = new int[2]         { -100, -100 };
 
     
 
@@ -28,32 +29,7 @@ class Ui : GameObject
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite(this.assets+"/uiAssets/Title_proto.png");
         backgroundImage = new Sprite(this.assets+"/uiAssets/bg_proto.png");
-
-        menuTiles[0] = new MenuTile();
-        menuTiles[1] = new MenuTile();
-        menuTiles[2] = new MenuTile();
-        tilesToRender = menuTiles.Length;
-
-        //debugging colors
-        menuTiles[0].SetColor( 0, 255, 0 );
-        menuTiles[1].SetColor( 255, 0, 0 );
-        menuTiles[2].SetColor( 0, 0, 255 );
-
-        // title image
-        // menuTiles[0].songimage;
-        // menuTiles[1].songimage;
-        // menuTiles[2].songimage;
-
-        // background image
-        // menuTiles[0].backgroundImage;
-        // menuTiles[1].backgroundImage;
-        // menuTiles[2].backgroundImage;
-
-        // background sound
-        // menuTiles[0].sound;
-        // menuTiles[1].sound;
-        // menuTiles[2].sound;
-
+        LoadLevels();
     }
 
     void Update()
@@ -64,6 +40,26 @@ class Ui : GameObject
         }
 
         UpdateCurrentTile();
+    }
+
+    void LoadLevels()
+    {
+        /*
+            debugging colors
+            title image
+            background image
+            background sound
+        */
+        menuTiles[0] = new MenuTile();
+        menuTiles[1] = new MenuTile();
+        menuTiles[2] = new MenuTile();
+        menuTiles[3] = new MenuTile();
+
+        menuTiles[0].SetColor( 0, 255, 0 );
+        menuTiles[1].SetColor( 255, 0, 0 );
+        menuTiles[2].SetColor( 0, 0, 255 );
+        menuTiles[3].SetColor( 200, 200, 200 );
+        tilesToRender = menuTiles.Length;
     }
 
     void UpdateCurrentTile()
@@ -112,9 +108,24 @@ class Ui : GameObject
         renderedTiles = new int[tilesToRender];
 
         // render currentTile first then other 2 tiles
-        renderedTiles[0] = currentTile;
-        renderedTiles[1] = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
-        renderedTiles[2] = currentTile == 0 ? renderedTiles.Length-1 : currentTile - 1;
+        // renderedTiles[0] = currentTile;
+        // renderedTiles[1] = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
+        // renderedTiles[2] = currentTile == 0 ? renderedTiles.Length-1 : currentTile - 1;
+
+        // sort array with currentTile first second tile after, previous tile third and the rest after
+        for ( int i = 0; i < renderedTiles.Length; i++ )
+        {
+            if ( i == 0 ) { 
+                renderedTiles[i] = currentTile;
+            } else if ( i == 2 ) {
+                renderedTiles[i] = (currentTile+2)%3; 
+            } else if ( i == 1 ) {
+                renderedTiles[i] = (currentTile+1)%3; 
+            } else {
+                renderedTiles[i] = i;
+                continue;
+            }
+        }
 
         SetTilePositions();
 
@@ -144,7 +155,11 @@ class Ui : GameObject
                 menuTiles[tile].SetScaleXY( 0.5f, 0.5f );
                 menuTiles[tile].SetXY( bottomRightUp[0]-menuTiles[tile].width/2, bottomRightUp[1] );
 
-            }             
+            } else {
+                menuTiles[tile].SetScaleXY( 0.0f, 0.0f );
+                menuTiles[tile].SetXY( hidden[0], hidden[1] );
+            } 
+
         }
         
         // set scale of backgroundTiles
