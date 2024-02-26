@@ -12,6 +12,7 @@ public class Level : GameObject
     //The different notes that can be played
     private List<Sound> melody;
     private Sound backgroundMusic;
+    private SoundChannel backgroundMusicChannel;
 
     private Vector2 leftDiscCoor = new Vector2(444, 640);
     private Vector2 rightDiscCoor = new Vector2(920, 640);
@@ -74,7 +75,7 @@ public class Level : GameObject
     {
         this.assetsLocation = assetsLocation;
         this.songLocation = songLocation;
-        this.backgroundMusic = new Sound(songLocation, true, false);
+        this.backgroundMusic = new Sound(songLocation, false, false);
     }
     
 
@@ -90,6 +91,7 @@ public class Level : GameObject
     private void ManageTileSpawning()
     {
         counterTimeSpawnTileMS += Time.deltaTime;
+        // Console.WriteLine(backgroundMusicChannel.IsPlaying);
 
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
         {
@@ -149,6 +151,8 @@ public class Level : GameObject
 
     private void PlayBackgroundMusic()
     {
-        backgroundMusic.Play();
+        Console.WriteLine(backgroundMusic);
+        backgroundMusicChannel = backgroundMusic.Play();
+        Console.WriteLine(backgroundMusicChannel);
     }
 }
