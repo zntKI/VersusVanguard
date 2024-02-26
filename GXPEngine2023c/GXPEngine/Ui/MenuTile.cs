@@ -5,6 +5,7 @@ using GXPEngine.Core;
 /*
     Should have track image, title, and dificulty
     Difficulty should/could have a small png ( higher the difficulty, the higher the png count )
+    write method to mount level assets to level class ( in constructor perhaps ?)
 */
 
 class MenuTile : Sprite
