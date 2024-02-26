@@ -12,8 +12,8 @@ public class StrokeTile : Tile
     private float strokeLength;
 
     private Stroke stroke;
-    private float tempStrokeXOffset = 4f;
-    private float tempStrokeYOffset = -11f;
+    private float strokeXOffset = 4f;  //Temp variables(remove when having actual assets)
+    private float strokeYOffset = -11f;//Temp variables(remove when having actual assets)
 
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
@@ -23,7 +23,7 @@ public class StrokeTile : Tile
         stroke = new Stroke(this.assets + $"/strokeExample.png", shouldMoveLeft, strokeLength);
         AddChild(stroke);
 
-        stroke.SetXY(shouldMoveLeft ? tempStrokeXOffset : -tempStrokeXOffset, tempStrokeYOffset);
+        stroke.SetXY(shouldMoveLeft ? strokeXOffset : -strokeXOffset, strokeYOffset);
     }
 
     private void Update()
