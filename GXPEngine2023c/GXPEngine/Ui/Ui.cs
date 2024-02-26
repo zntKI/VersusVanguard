@@ -44,19 +44,10 @@ class Ui : GameObject
 
     void LoadLevels()
     {
-        /*
-            debugging colors
-            title image
-            background image
-            background sound
-        */
-        menuTiles[0] = new MenuTile();
-        menuTiles[1] = new MenuTile();
-        menuTiles[2] = new MenuTile();
+        menuTiles[0] = new MenuTile( "level1" );
+        menuTiles[1] = new MenuTile( "level2" );
+        menuTiles[2] = new MenuTile( "level3" );
 
-        menuTiles[0].SetColor( 0, 255, 0 );
-        menuTiles[1].SetColor( 255, 0, 0 );
-        menuTiles[2].SetColor( 0, 0, 255 );
         tilesToRender = menuTiles.Length;
     }
 
