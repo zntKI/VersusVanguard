@@ -49,11 +49,31 @@ public class StrokeTile : Tile
         if ((conditionLeftLane || conditionRightLane)
             && distanceFromRecordCenter <= reactionDistance)
         {
-            int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);
-            shouldStopMoving = new Tuple<bool, int>(true, keyCode);
+            if (!shouldStopMoving.Item1)
+            {
+                int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
+                shouldStopMoving = new Tuple<bool, int>(true, keyCode);
+
+                if (stroke.parent == this)
+                    DetachStroke();
+            }
 
             return reactionDistance - distanceFromRecordCenter;
         }
         return 0;
+    }
+
+    //Detach stroke from tile and assign it as a child of level instead
+    private void DetachStroke()
+    {
+        float strokeX = stroke.x;
+        float strokeY = stroke.y;
+        float strokeScaleX = stroke.scaleX;
+        float strokeScaleY = stroke.scaleY;
+        stroke.parent = this.parent;
+        this.parent.SetChildIndex(stroke, this.Index);
+        stroke.SetXY(this.x + strokeX, this.y + strokeY);
+        stroke.SetScaleXY(this.scaleX * strokeScaleX, this.scaleY * strokeScaleY);
+        stroke.Detach(shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount, speed);
     }
 }

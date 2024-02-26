@@ -9,10 +9,35 @@ public class Stroke : Sprite
 {
     private const float strokeRotation = 15.8f;
 
+    private bool isDetached;
+
+    private float sidewaysMoveAmount;
+    private float speed;
+
     public Stroke(string filename, bool shouldTileMoveLeft, float length) : base(filename, false, false)
     {
         SetOrigin(width / 2, height);
         SetScaleXY(scaleX, scaleY * length);
         rotation = shouldTileMoveLeft ? strokeRotation : -strokeRotation;
+    }
+
+    private void Update()
+    {
+        if (isDetached)
+            Move();
+    }
+
+    private void Move()
+    {
+        x += sidewaysMoveAmount;
+        y += speed;
+    }
+
+    public void Detach(float sidewaysMoveAmount, float speed)
+    { 
+        isDetached = true;
+
+        this.sidewaysMoveAmount = sidewaysMoveAmount;
+        this.speed = speed;
     }
 }

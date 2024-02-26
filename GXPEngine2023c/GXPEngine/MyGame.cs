@@ -11,7 +11,7 @@ public class MyGame : Game {  // Resolution is 1366 x 768
 		//AddChild(ui);
 
 		AddChild(new Level(60));
-    }
+	}
 
 	void Update() {
 		// Empty

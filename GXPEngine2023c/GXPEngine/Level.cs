@@ -61,7 +61,7 @@ public class Level : GameObject
 
     private void Update()
     {
-        if ( levelLoaded == false )
+        if ( levelLoaded == true )
         {
             return;
         }
@@ -173,6 +173,6 @@ public class Level : GameObject
             score += ((Tile)tile).CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
         }
 
-        Console.WriteLine(score);
+        //Console.WriteLine(score);
     }
 }
