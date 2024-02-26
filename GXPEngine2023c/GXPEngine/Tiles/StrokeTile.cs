@@ -16,6 +16,7 @@ public class StrokeTile : Tile
     private float strokeYOffset = -11f;//Temp variables(remove when having actual assets)
 
     private Tuple<bool, int> shouldStopMoving = new Tuple<bool, int>(false, 0);
+    private int tileStoppedY;
 
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
@@ -35,6 +36,11 @@ public class StrokeTile : Tile
 
         if (!shouldStopMoving.Item1)
             Move();
+        else if (stroke.y - stroke.strokeEndY >= tileStoppedY)
+        {
+            stroke.Destroy();
+            Destroy();
+        }
     }
 
     public override int CheckPosition(int reactionDistance, Vector2 leftRecordCoor, Vector2 rightRecordCoor)
@@ -53,6 +59,7 @@ public class StrokeTile : Tile
             {
                 int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
                 shouldStopMoving = new Tuple<bool, int>(true, keyCode);
+                tileStoppedY = (int)this.y;
 
                 if (stroke.parent == this)
                     DetachStroke();
@@ -74,6 +81,6 @@ public class StrokeTile : Tile
         this.parent.SetChildIndex(stroke, this.Index);
         stroke.SetXY(this.x + strokeX, this.y + strokeY);
         stroke.SetScaleXY(this.scaleX * strokeScaleX, this.scaleY * strokeScaleY);
-        stroke.Detach(shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount, speed);
+        stroke.Detach(shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount, speed, (int)y);
     }
 }

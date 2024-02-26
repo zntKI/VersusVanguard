@@ -9,6 +9,8 @@ public class Stroke : Sprite
 {
     private const float strokeRotation = 15.8f;
 
+    public int strokeEndY;
+
     private bool isDetached;
 
     private float sidewaysMoveAmount;
@@ -33,11 +35,13 @@ public class Stroke : Sprite
         y += speed;
     }
 
-    public void Detach(float sidewaysMoveAmount, float speed)
+    public void Detach(float sidewaysMoveAmount, float speed, int tileStoppedY)
     { 
         isDetached = true;
 
         this.sidewaysMoveAmount = sidewaysMoveAmount;
         this.speed = speed;
+
+        strokeEndY = (int)Mathf.Abs(Mathf.Cos(rotation) * height);
     }
 }
