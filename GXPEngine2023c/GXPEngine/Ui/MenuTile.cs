@@ -47,6 +47,7 @@ class MenuTile : Sprite
     public void LoadLevel()
     {
         level = new Level(60);
+        level.SetLevelAssets(levelAssets, soundLocation);
         parent.AddChild(level);
     }
 
