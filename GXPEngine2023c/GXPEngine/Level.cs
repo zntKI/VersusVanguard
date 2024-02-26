@@ -36,6 +36,8 @@ public class Level : GameObject
     private int score;
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
+    public bool levelLoaded = false;
+
     public Level(int bpm)
     {
         this.bpm = bpm;
@@ -59,11 +61,23 @@ public class Level : GameObject
 
     private void Update()
     {
+        if ( levelLoaded == false )
+        {
+            return;
+        }
+
         //Spawn the tile with the random sound from the list based on bpm
         ManageTileSpawning();
         CheckForInput();
 
         scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
+    }
+
+    public void LoadLevel()
+    {
+        //Load level assets
+        //LoadLevelConfig();
+        levelLoaded = true;
     }
 
     private void ManageTileSpawning()
