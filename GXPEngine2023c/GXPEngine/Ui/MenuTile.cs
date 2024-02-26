@@ -16,7 +16,7 @@ class MenuTile : Sprite
     string soundLocation;
     // bool   audioPreview = false;
 
-    Level level;
+    public Level level;
 
 
     public MenuTile( String levelName ) : base("../../assets/uiAssets/SongTile_proto.png")
@@ -48,7 +48,6 @@ class MenuTile : Sprite
     {
         level = new Level(60);
         parent.AddChild(level);
-        level.levelLoaded = true;
     }
 
     void LoadLevelConfig()

@@ -61,17 +61,16 @@ class Ui : GameObject
             currentTile = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
         } else if ( Input.GetKeyDown(Key.SPACE) )
         {
-            foreach (int tile in renderedTiles)
-            {
-                Console.WriteLine( "Tile: " + tile );
-            }
-            Console.WriteLine( "\n");
+            // Maybe use to enable audio preview or debug mode ?
+            // Console.WriteLine("");
             
         } else if ( Input.GetKeyDown(Key.ENTER) )
         {
-            // Console.WriteLine( currentTile );
+            Console.WriteLine( "Loading level" );
             menuTiles[currentTile].LoadLevel();
             UnLoadUi();
+            menuTiles[currentTile].level.LoadLevel();
+            return;
         } 
 
         // if currentTile is not rendered then render
