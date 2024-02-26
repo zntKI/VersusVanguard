@@ -29,7 +29,7 @@ class Ui : GameObject
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite(this.assets+"/uiAssets/Title_proto.png");
         backgroundImage = new Sprite(this.assets+"/uiAssets/bg_proto.png");
-        LoadLevels();
+        LoadMenuTiles();
     }
 
     void Update()
@@ -42,7 +42,7 @@ class Ui : GameObject
         UpdateCurrentTile();
     }
 
-    void LoadLevels()
+    void LoadMenuTiles()
     {
         menuTiles[0] = new MenuTile( "level1" );
         menuTiles[1] = new MenuTile( "level2" );
@@ -51,7 +51,7 @@ class Ui : GameObject
         tilesToRender = menuTiles.Length;
     }
 
-    void UpdateCurrentTile()
+    void UpdateCurrentTile()            //NOTE: refactor this when controller is added
     {
         if ( Input.GetKeyDown(Key.LEFT) )
         {
@@ -69,21 +69,37 @@ class Ui : GameObject
             
         } else if ( Input.GetKeyDown(Key.ENTER) )
         {
-            Console.WriteLine( currentTile );
-            // menuTiles[currentTile].LoadLevel();
+            // Console.WriteLine( currentTile );
+            menuTiles[currentTile].LoadLevel();
+            UnLoadUi();
         } 
 
         // if currentTile is not rendered then render
         if ( currentTile != renderedTiles[0] ) Render();
     }
 
-    void Render()
+    void UnloadMenuTiles()
     {
         foreach ( GameObject child in parent.GetChildren() )
         {
             if ( child is Ui) continue;
             parent.RemoveChild( child );
         }
+    }
+
+    void UnLoadUi()
+    {
+        foreach ( GameObject child in parent.GetChildren() )
+        {
+            if ( child is Level ) continue;
+            child.LateDestroy();
+        }
+    }
+
+    void Render()
+    {
+
+        UnloadMenuTiles();
 
         // render background and title
         backgroundTiles[0] = new Sprite(this.assets+"/uiAssets/SongTile_proto.png");
