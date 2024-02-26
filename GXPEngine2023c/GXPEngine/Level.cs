@@ -148,8 +148,8 @@ public class Level : GameObject
 
     private void CheckForInput()
     {
-        if (!Input.AnyKey() && !Input.AnyKeyDown())
-            return;
+        //if (/*!Input.AnyKey() && */!Input.AnyKeyDown())
+        //    return;
 
         var tilesInScene = this.GetChildren().Where(obj => obj is Tile);
 
