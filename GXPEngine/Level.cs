@@ -12,8 +12,8 @@ public class Level : GameObject
     //The different notes that can be played
     private List<Sound> melody;
 
-    private Vector2 leftDiscCoor = new Vector2(444, 640);
-    private Vector2 rightDiscCoor = new Vector2(920, 640);
+    private Vector2 leftDiscCoor = new Vector2(422, 640);
+    private Vector2 rightDiscCoor = new Vector2(936, 640);
 
     private int bpm;
     private int timeBetweenBeatsMS;

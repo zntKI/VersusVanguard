@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public class Stroke : Sprite
 {
-    private const float strokeRotation = 15.8f;
+    private const float strokeRotation = 24f;
 
     public int StrokeEndY => strokeEndY;
     private int strokeEndY;
@@ -43,6 +43,6 @@ public class Stroke : Sprite
         this.sidewaysMoveAmount = sidewaysMoveAmount;
         this.speed = speed;
 
-        strokeEndY = (int)Mathf.Abs(Mathf.Cos(rotation) * height);
+        strokeEndY = (int)(Mathf.Abs(Mathf.Sin(rotation)) * height);
     }
 }
