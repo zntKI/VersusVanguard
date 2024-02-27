@@ -27,8 +27,8 @@ class Ui : GameObject
     public Ui()
     {
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
-        titleImage = new Sprite(this.assets+"/uiAssets/Title_proto.png");
-        backgroundImage = new Sprite(this.assets+"/uiAssets/bg_proto.png");
+        titleImage = new Sprite("uiAssets/Title_proto.png");
+        backgroundImage = new Sprite("uiAssets/bg_proto.png");
         LoadMenuTiles();
     }
 
@@ -101,8 +101,8 @@ class Ui : GameObject
         UnloadMenuTiles();
 
         // render background and title
-        backgroundTiles[0] = new Sprite(this.assets+"/uiAssets/SongTile_proto.png");
-        backgroundTiles[1] = new Sprite(this.assets+"/uiAssets/SongTile_proto.png");
+        backgroundTiles[0] = new Sprite("uiAssets/SongTile_proto.png");
+        backgroundTiles[1] = new Sprite("uiAssets/SongTile_proto.png");
         parent.AddChild( backgroundImage );
         parent.AddChild( titleImage );
         parent.AddChild( backgroundTiles[0] );

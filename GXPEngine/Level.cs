@@ -11,6 +11,7 @@ public class Level : GameObject
 {
     //The different notes that can be played
     private List<Sound> melody;
+    private AnimationSprite crowd;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -38,6 +39,8 @@ public class Level : GameObject
 
     public bool levelLoaded = false;
 
+    private int bgTopChildIndex;
+
     public Level(int bpm)
     {
         this.bpm = bpm;
@@ -46,6 +49,18 @@ public class Level : GameObject
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
 
         AddChild(new Sprite("levelTilesAssets/Background.png", false, false));//Figure out better solution for background
+
+        crowd = new AnimationSprite("levelTilesAssets/crowd.png", 3, 4, -1, false, false);
+        crowd.SetOrigin(crowd.width / 2, crowd.height / 2);
+        AddChild(crowd);
+        crowd.SetXY(game.width / 2, game.height / 2 + 50);
+        crowd.SetCycle(0, 12, 2);
+
+        AddChild(new Sprite("levelTilesAssets/table.png", false, false));
+
+        Sprite bgTop = new Sprite("levelTilesAssets/Background_top.png", false, false);
+        AddChild(bgTop);
+        bgTopChildIndex = bgTop.Index;
 
         //Temporary way to display score (think of a better way after the playtesting session)
         scoreDisplayer = new EasyDraw(200, 70, false);
@@ -65,6 +80,8 @@ public class Level : GameObject
         {
             return;
         }
+
+        crowd.Animate();
 
         //Spawn the tile with the random sound from the list based on bpm
         ManageTileSpawning();
@@ -102,6 +119,7 @@ public class Level : GameObject
 
             Tile tileToSpawn = Spawn(shouldTileMoveLeft);
             AddChild(tileToSpawn);
+            this.SetChildIndex(tileToSpawn, bgTopChildIndex);
 
             counterTimeSpawnTileMS = 0;
             randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
