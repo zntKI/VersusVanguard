@@ -75,6 +75,7 @@ public class Level : GameObject
     {
         this.assetsLocation = assetsLocation;
         this.songLocation = songLocation;
+        Console.WriteLine(this.songLocation);
         this.backgroundMusic = new Sound(songLocation, false, false);
     }
     

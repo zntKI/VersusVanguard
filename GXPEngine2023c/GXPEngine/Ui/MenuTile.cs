@@ -24,7 +24,7 @@ class MenuTile : Sprite
         this.levelName = levelName;
         this.levelAssets += levelName;
         this.artLocation = levelAssets + "/art.png";
-        this.soundLocation = levelAssets + "/sound.wav";
+        this.soundLocation = levelAssets + "/song.mp3";
 
         if (Game.main == null) {
 				throw new Exception ("Sprites cannot be created before creating a Game instance.");
