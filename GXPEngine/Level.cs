@@ -25,12 +25,15 @@ public class Level : GameObject
     private int randomTimeSpawnTileMS;
     private int counterTimeSpawnTileMS;
 
+<<<<<<< HEAD
     //Variables for wait time after a stroke tile has been spawned
     private int leftLaneWaitTimeMS;
     private int rightLaneWaitTimeMS;
     private int leftLaneWaitTimeMSCounter;
     private int rightLaneWaitTimeMSCounter;
 
+=======
+>>>>>>> test
     private int reactionDistance = 50;
 
     private int score;
@@ -61,7 +64,11 @@ public class Level : GameObject
 
     private void Update()
     {
+<<<<<<< HEAD
         if ( levelLoaded == true )
+=======
+        if ( levelLoaded == false )
+>>>>>>> test
         {
             return;
         }
@@ -84,24 +91,57 @@ public class Level : GameObject
     {
         counterTimeSpawnTileMS += Time.deltaTime;
 
+<<<<<<< HEAD
         if (leftLaneWaitTimeMS != 0)
             leftLaneWaitTimeMSCounter += Time.deltaTime;
         if (rightLaneWaitTimeMS != 0)
             rightLaneWaitTimeMSCounter += Time.deltaTime;
 
 
+=======
+>>>>>>> test
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
         {
             //Spawn tile
 
             bool shouldTileMoveLeft = Utils.Random(1, 3) == 1;
 
+<<<<<<< HEAD
             //Skips tile spawning if the specified amount of time has not yet passed since the last spawn of a stroke tile in the given lane
             if ((shouldTileMoveLeft && leftLaneWaitTimeMS != 0 && leftLaneWaitTimeMSCounter < leftLaneWaitTimeMS) ||
                 (!shouldTileMoveLeft && rightLaneWaitTimeMS != 0 && rightLaneWaitTimeMSCounter < rightLaneWaitTimeMS))
                 return;
 
             Tile tileToSpawn = Spawn(shouldTileMoveLeft);
+=======
+            Tile tileToSpawn;
+            int tileToSpawnNum = Utils.Random(1, 3);//Dictates which tile to spawn
+            switch (tileToSpawnNum)
+            {
+                case 1:
+                    {
+                        //TODO: Fix this later:
+                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
+                        string filename = dirNum == 1 ? "dirTileLeftExample" : "dirTileRightExample";
+                        tileToSpawn = new DirectionTile(this.assets + $"/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                        break;
+                    }
+                //case 2: //Uncomment this after the first play testing session has passed
+                //    {
+                //        //TODO: Fix this later:
+                //        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
+                //        string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
+                //        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 5f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 0f/*TODO: Fix that later*/);
+                //        break;
+                //    }
+                case 2:
+                    tileToSpawn = new Tile(this.assets + "/denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                    break;
+                default:
+                    throw new InvalidOperationException("Wrong number for spawning tiles");
+            }
+
+>>>>>>> test
             AddChild(tileToSpawn);
 
             counterTimeSpawnTileMS = 0;
@@ -109,6 +149,7 @@ public class Level : GameObject
         }
     }
 
+<<<<<<< HEAD
     private Tile Spawn(bool shouldTileMoveLeft)
     {
         Tile tileToSpawn;
@@ -168,6 +209,13 @@ public class Level : GameObject
 
     private void CheckForInput()
     {
+=======
+    private void CheckForInput()
+    {
+        if (!Input.AnyKey() && !Input.AnyKeyDown())
+            return;
+
+>>>>>>> test
         var tilesInScene = this.GetChildren().Where(obj => obj is Tile);
 
         foreach (var tile in tilesInScene)
@@ -175,5 +223,10 @@ public class Level : GameObject
             //Check if the current tile in the reaction zone
             score += ((Tile)tile).CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
         }
+<<<<<<< HEAD
+=======
+
+        Console.WriteLine(score);
+>>>>>>> test
     }
 }

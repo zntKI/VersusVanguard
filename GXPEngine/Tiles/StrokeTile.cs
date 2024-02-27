@@ -11,6 +11,7 @@ public class StrokeTile : Tile
     private bool isLeft;
     private float strokeLength;
 
+<<<<<<< HEAD
     private Stroke stroke;
     private float strokeXOffset = 4f;  //Temp variables(remove when having actual assets)
     private float strokeYOffset = -11f;//Temp variables(remove when having actual assets)
@@ -18,19 +19,25 @@ public class StrokeTile : Tile
     private Tuple<bool, int> shouldStopMoving = new Tuple<bool, int>(false, 0);
     private int currentTileStoppedY;
 
+=======
+>>>>>>> test
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
         this.isLeft = isLeft;
         this.strokeLength = strokeLength;
+<<<<<<< HEAD
 
         stroke = new Stroke(this.assets + $"/strokeExample.png", shouldMoveLeft, strokeLength);
         AddChild(stroke);
 
         stroke.SetXY(shouldMoveLeft ? strokeXOffset : -strokeXOffset, strokeYOffset);
+=======
+>>>>>>> test
     }
 
     private void Update()
     {
+<<<<<<< HEAD
         if (stroke == null)
             stroke = FindObjectOfType<Stroke>();
 
@@ -41,10 +48,14 @@ public class StrokeTile : Tile
             stroke.Destroy();
             Destroy();
         }
+=======
+        Move();
+>>>>>>> test
     }
 
     public override int CheckPosition(int reactionDistance, Vector2 leftRecordCoor, Vector2 rightRecordCoor)
     {
+<<<<<<< HEAD
         int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
 
         //Checks if the player has stopped 'spinning' the record
@@ -83,5 +94,8 @@ public class StrokeTile : Tile
         stroke.SetXY(this.x + strokeX, this.y + strokeY);
         stroke.SetScaleXY(this.scaleX * strokeScaleX, this.scaleY * strokeScaleY);
         stroke.Detach(shouldMoveLeft ? -sidewaysMoveAmount : sidewaysMoveAmount, speed, (int)y);
+=======
+        throw new NotImplementedException("Temporarily Stroke tiles don't exist in the game"); //Implement this after the first play testing session has passed
+>>>>>>> test
     }
 }
