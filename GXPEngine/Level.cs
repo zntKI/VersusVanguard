@@ -11,7 +11,6 @@ public class Level : GameObject
 {
     //The different notes that can be played
     private List<Sound> melody;
-    private Sound backgroundMusic;
 
     private Vector2 leftDiscCoor = new Vector2(444, 640);
     private Vector2 rightDiscCoor = new Vector2(920, 640);
@@ -40,9 +39,7 @@ public class Level : GameObject
     private int score;
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
-    private bool levelLoaded = false;
-    private string assetsLocation;
-    private string songLocation;
+    public bool levelLoaded = false;
 
     public Level(int bpm)
     {
@@ -83,22 +80,12 @@ public class Level : GameObject
         scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
     }
 
-    public void SetLevelAssets(string assetsLocation, string songLocation)
-    {
-        this.assetsLocation = assetsLocation;
-        this.songLocation = songLocation;
-        this.backgroundMusic = new Sound(songLocation, false, false);
-    }
-    
-
     public void LoadLevel()
     {
         //Load level assets
         //LoadLevelConfig();
         levelLoaded = true;
-        PlayBackgroundMusic();
     }
-
 
     private void ManageTileSpawning()
     {
@@ -241,10 +228,5 @@ public class Level : GameObject
 
         Console.WriteLine(score);
 >>>>>>> test
-    }
-
-    private void PlayBackgroundMusic()
-    {
-        backgroundMusic.Play();
     }
 }

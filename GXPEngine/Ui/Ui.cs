@@ -62,7 +62,7 @@ class Ui : GameObject
         } else if ( Input.GetKeyDown(Key.SPACE) )
         {
             // Maybe use to enable audio preview or debug mode ?
-            Console.WriteLine(currentTile);
+            // Console.WriteLine("");
             
         } else if ( Input.GetKeyDown(Key.ENTER) )
         {
