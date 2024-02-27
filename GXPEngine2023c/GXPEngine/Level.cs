@@ -75,7 +75,6 @@ public class Level : GameObject
     {
         this.assetsLocation = assetsLocation;
         this.songLocation = songLocation;
-        Console.WriteLine(this.songLocation);
         this.backgroundMusic = new Sound(songLocation, false, false);
     }
     
@@ -92,7 +91,6 @@ public class Level : GameObject
     private void ManageTileSpawning()
     {
         counterTimeSpawnTileMS += Time.deltaTime;
-        // Console.WriteLine(backgroundMusicChannel.IsPlaying);
 
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
         {
@@ -152,8 +150,6 @@ public class Level : GameObject
 
     private void PlayBackgroundMusic()
     {
-        Console.WriteLine(backgroundMusic);
         backgroundMusicChannel = backgroundMusic.Play();
-        Console.WriteLine(backgroundMusicChannel);
     }
 }
