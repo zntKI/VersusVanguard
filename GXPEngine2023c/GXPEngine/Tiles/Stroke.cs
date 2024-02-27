@@ -9,7 +9,8 @@ public class Stroke : Sprite
 {
     private const float strokeRotation = 15.8f;
 
-    public int strokeEndY;
+    public int StrokeEndY => strokeEndY;
+    private int strokeEndY;
 
     private bool isDetached;
 

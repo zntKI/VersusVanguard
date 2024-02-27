@@ -83,14 +83,11 @@ public class Level : GameObject
     private void ManageTileSpawning()
     {
         counterTimeSpawnTileMS += Time.deltaTime;
+
         if (leftLaneWaitTimeMS != 0)
-        {
             leftLaneWaitTimeMSCounter += Time.deltaTime;
-        }
         if (rightLaneWaitTimeMS != 0)
-        {
             rightLaneWaitTimeMSCounter += Time.deltaTime;
-        }
 
 
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
@@ -99,60 +96,12 @@ public class Level : GameObject
 
             bool shouldTileMoveLeft = Utils.Random(1, 3) == 1;
 
+            //Skips tile spawning if the specified amount of time has not yet passed since the last spawn of a stroke tile in the given lane
             if ((shouldTileMoveLeft && leftLaneWaitTimeMS != 0 && leftLaneWaitTimeMSCounter < leftLaneWaitTimeMS) ||
                 (!shouldTileMoveLeft && rightLaneWaitTimeMS != 0 && rightLaneWaitTimeMSCounter < rightLaneWaitTimeMS))
                 return;
 
-            Tile tileToSpawn;
-            int tileToSpawnNum = Utils.Random(1, 3);//Dictates which tile to spawn
-            switch (tileToSpawnNum)
-            {
-                case 1:
-                    {
-                        //TODO: Fix this later:
-                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
-                        string filename = dirNum == 1 ? "dirTileLeftExample" : "dirTileRightExample";
-                        tileToSpawn = new DirectionTile(this.assets + $"/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
-
-                        if (shouldTileMoveLeft)
-                            leftLaneWaitTimeMS = 0;
-                        else
-                            rightLaneWaitTimeMS = 0;
-                        break;
-                    }
-                case 2:
-                    {
-                        //TODO: Fix this later:
-                        int dirNum = Utils.Random(1, 3);//Dictates tile's direction
-                        string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
-                        tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 2f/*Fix this later(make it not hardcoded)*/);
-                        
-                        if (shouldTileMoveLeft)
-                        {
-                            leftLaneWaitTimeMS = 2000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
-                            leftLaneWaitTimeMSCounter = 0;
-                        }
-                        else
-                        {
-                            rightLaneWaitTimeMS = 2000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
-                            rightLaneWaitTimeMSCounter = 0;
-                        }
-
-                        break;
-                    }
-                case 3:
-                    tileToSpawn = new Tile(this.assets + "/denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
-
-                    if (shouldTileMoveLeft)
-                        leftLaneWaitTimeMS = 0;
-                    else
-                        rightLaneWaitTimeMS = 0;
-
-                    break;
-                default:
-                    throw new InvalidOperationException("Wrong number for spawning tiles");
-            }
-
+            Tile tileToSpawn = Spawn(shouldTileMoveLeft);
             AddChild(tileToSpawn);
 
             counterTimeSpawnTileMS = 0;
@@ -160,11 +109,65 @@ public class Level : GameObject
         }
     }
 
+    private Tile Spawn(bool shouldTileMoveLeft)
+    {
+        Tile tileToSpawn;
+        int tileToSpawnNum = Utils.Random(1, 4);//Dictates which tile to spawn
+        switch (tileToSpawnNum)
+        {
+            case 1:
+                {
+                    //TODO: Fix this later:
+                    int dirNum = Utils.Random(1, 3);//Dictates tile's direction
+                    string filename = dirNum == 1 ? "dirTileLeftExample" : "dirTileRightExample";
+                    tileToSpawn = new DirectionTile(this.assets + $"/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+
+                    //TODO: Figure out a better solution
+                    if (shouldTileMoveLeft)
+                        leftLaneWaitTimeMS = 0;
+                    else
+                        rightLaneWaitTimeMS = 0;
+                    break;
+                }
+            case 2:
+                {
+                    //TODO: Fix this later:
+                    int dirNum = Utils.Random(1, 3);//Dictates tile's direction
+                    string filename = dirNum == 1 ? "strokeTileLeftExample" : "strokeTileRightExample";
+                    tileToSpawn = new StrokeTile($"{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 5f/*Fix this later(make it not hardcoded)*/);
+
+                    if (shouldTileMoveLeft)
+                    {
+                        leftLaneWaitTimeMS = 5000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
+                        leftLaneWaitTimeMSCounter = 0;
+                    }
+                    else
+                    {
+                        rightLaneWaitTimeMS = 5000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
+                        rightLaneWaitTimeMSCounter = 0;
+                    }
+
+                    break;
+                }
+            case 3:
+                tileToSpawn = new Tile(this.assets + "/denyTileExample.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+
+                //TODO: Figure out a better solution
+                if (shouldTileMoveLeft)
+                    leftLaneWaitTimeMS = 0;
+                else
+                    rightLaneWaitTimeMS = 0;
+
+                break;
+            default:
+                throw new InvalidOperationException("Wrong number for spawning tiles");
+        }
+
+        return tileToSpawn;
+    }
+
     private void CheckForInput()
     {
-        //if (/*!Input.AnyKey() && */!Input.AnyKeyDown())
-        //    return;
-
         var tilesInScene = this.GetChildren().Where(obj => obj is Tile);
 
         foreach (var tile in tilesInScene)
@@ -172,7 +175,5 @@ public class Level : GameObject
             //Check if the current tile in the reaction zone
             score += ((Tile)tile).CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
         }
-
-        //Console.WriteLine(score);
     }
 }

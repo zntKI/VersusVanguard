@@ -16,7 +16,7 @@ public class StrokeTile : Tile
     private float strokeYOffset = -11f;//Temp variables(remove when having actual assets)
 
     private Tuple<bool, int> shouldStopMoving = new Tuple<bool, int>(false, 0);
-    private int tileStoppedY;
+    private int currentTileStoppedY;
 
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
@@ -36,7 +36,7 @@ public class StrokeTile : Tile
 
         if (!shouldStopMoving.Item1)
             Move();
-        else if (stroke.y - stroke.strokeEndY >= tileStoppedY)
+        else if (stroke.y - stroke.StrokeEndY >= currentTileStoppedY)
         {
             stroke.Destroy();
             Destroy();
@@ -47,6 +47,7 @@ public class StrokeTile : Tile
     {
         int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
 
+        //Checks if the player has stopped 'spinning' the record
         if (distanceFromRecordCenter <= reactionDistance && shouldStopMoving.Item1 && !Input.GetKey(shouldStopMoving.Item2))
             shouldStopMoving = new Tuple<bool, int>(false, 0);
 
@@ -59,13 +60,13 @@ public class StrokeTile : Tile
             {
                 int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
                 shouldStopMoving = new Tuple<bool, int>(true, keyCode);
-                tileStoppedY = (int)this.y;
+                currentTileStoppedY = (int)this.y;
 
-                if (stroke.parent == this)
+                if (stroke.parent == this)//Makes sure it detaches the stroke once
                     DetachStroke();
             }
 
-            return reactionDistance - distanceFromRecordCenter;
+            return Time.time % 8 == 0 ? reactionDistance - distanceFromRecordCenter : 0;
         }
         return 0;
     }
