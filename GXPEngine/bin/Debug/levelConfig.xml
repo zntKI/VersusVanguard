@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LevelConfig>
     <Level1>
         <Name>Level1</Name>
-        <Background>background.png</Background>
+        <BackgroundSong>background.png</BackgroundSong>
         <Thumbnail>art.png</Thumbnail>
         <Song>song.mp3</Song>
     </Level1>
