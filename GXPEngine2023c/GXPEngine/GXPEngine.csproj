@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -45,6 +45,7 @@
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MyGame.cs" />
+    <Compile Include="Tiles\Stroke.cs" />
     <Compile Include="Ui\Ui.cs" />
     <Compile Include="Ui\MenuTile.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
