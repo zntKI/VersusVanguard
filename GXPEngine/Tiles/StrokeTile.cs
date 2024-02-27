@@ -22,7 +22,7 @@ public class StrokeTile : Tile
         this.isLeft = isLeft;
         this.strokeLength = strokeLength;
 
-        stroke = new Stroke(this.assets + $"/strokeExample.png", shouldMoveLeft, strokeLength);
+        stroke = new Stroke("levelTilesAssets/strokeStraight.png", shouldMoveLeft, strokeLength);
         AddChild(stroke);
 
         stroke.SetXY(shouldMoveLeft ? strokeXOffset : -strokeXOffset, strokeYOffset);
