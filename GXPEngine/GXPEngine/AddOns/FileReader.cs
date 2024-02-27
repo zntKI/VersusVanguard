@@ -35,10 +35,15 @@ namespace GXPEngine
         }
 
 
-        private string[] ReadTxt()
+        private void ReadTxt()
         {
+            Console.WriteLine("Reading txt file: " + filename);
             string[] lines = System.IO.File.ReadAllLines(filename);
-            return lines;
+
+            foreach (string line in lines)
+            {
+                Console.WriteLine(line);
+            }
         }
 
         private void ReadJson()
@@ -57,14 +62,7 @@ namespace GXPEngine
         private void ReadXml()
         {
             xmlDoc.Load(filename);
-            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("LevelConfig/Level1");
-            
-            // print text of each node
-            foreach ( XmlNode node in nodeList)
-            {
-                Console.WriteLine("test");
-            }
-
+            Console.WriteLine( xmlDoc.DocumentElement.SelectSingleNode("LevelConfig/Level1").ChildNodes );
         }
     }
 }
