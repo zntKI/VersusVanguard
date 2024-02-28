@@ -61,7 +61,7 @@ public class Tile : Sprite
     {
         int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
 
-        if (Input.GetKeyDown(Key.G) && distanceFromRecordCenter <= reactionDistance)
+        if ((Input.GetKeyDown(Key.G) || ControllerManager.GetButtonValue() == 0) && distanceFromRecordCenter <= reactionDistance)
         {
             Destroy();
             return reactionDistance - distanceFromRecordCenter;

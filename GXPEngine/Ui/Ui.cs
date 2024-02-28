@@ -22,7 +22,7 @@ class Ui : GameObject
     int[] bottomRightBack = new int[2]{ 854, 310 };
     int[] hidden = new int[2]         { -100, -100 };
 
-    
+    private Tuple<bool, bool> hasChangedTile = new Tuple<bool, bool>(false, false);
 
     // dynamically load menuTiles
 
@@ -68,18 +68,27 @@ class Ui : GameObject
 
     void UpdateCurrentTile()            //NOTE: refactor this when controller is added
     {
-        if ( Input.GetKeyDown(Key.LEFT) )
+        if ((ControllerManager.GetLeftRecordValue() == 0 && hasChangedTile.Item2) || (ControllerManager.GetRightRecordValue() == 0 && !hasChangedTile.Item2))
+        {
+            hasChangedTile = new Tuple<bool, bool>(false, false);
+        }
+
+        if ( (ControllerManager.GetLeftRecordValue() == -1 || ControllerManager.GetRightRecordValue() == -1) &&
+            !hasChangedTile.Item1/*Input.GetKeyDown(Key.LEFT)*/ )
         {
             currentTile = currentTile == 0 ? renderedTiles.Length-1 : currentTile - 1;
-        } else if ( Input.GetKeyDown(Key.RIGHT) )
+            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == -1 ? true : false);
+        } else if ( (ControllerManager.GetLeftRecordValue() == 1 || ControllerManager.GetRightRecordValue() == 1) &&
+            !hasChangedTile.Item1/*Input.GetKeyDown(Key.RIGHT)*/ )
         {
             currentTile = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
+            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == 1 ? true : false);
         } else if ( Input.GetKeyDown(Key.SPACE) )
         {
             // Maybe use to enable audio preview or debug mode ?
             // Console.WriteLine("");
             
-        } else if ( Input.GetKeyDown(Key.ENTER) )
+        } else if (ControllerManager.GetButtonValue() == 0/*Input.GetKeyDown(Key.ENTER)*/ )
         {
             Console.WriteLine( "Loading level" );
             menuTiles[currentTile].LoadLevel();

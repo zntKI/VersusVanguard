@@ -25,8 +25,8 @@ public class DirectionTile : Tile
     {
         int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
 
-        bool conditionLeftLane = shouldMoveLeft && ((isLeft && Input.GetKeyDown(Key.A)) || (!isLeft && Input.GetKeyDown(Key.D)));
-        bool conditionRightLane = !shouldMoveLeft && ((isLeft && Input.GetKeyDown(Key.J)) || (!isLeft && Input.GetKeyDown(Key.L)));
+        bool conditionLeftLane = shouldMoveLeft && ((isLeft && (Input.GetKeyDown(Key.A) || ControllerManager.GetLeftRecordValue() == -1)) || (!isLeft && (Input.GetKeyDown(Key.D) || ControllerManager.GetLeftRecordValue() == 1)));
+        bool conditionRightLane = !shouldMoveLeft && ((isLeft && (Input.GetKeyDown(Key.J) || ControllerManager.GetRightRecordValue() == -1)) || (!isLeft && (Input.GetKeyDown(Key.L) || ControllerManager.GetRightRecordValue() == 1)));
         if ((conditionLeftLane || conditionRightLane)
             && distanceFromRecordCenter <= reactionDistance)
         {
