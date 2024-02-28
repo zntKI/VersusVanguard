@@ -30,8 +30,8 @@ class Ui : GameObject
     {
         fileReader = new FileReader( config );
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
-        titleImage = new Sprite("uiAssets/Title_proto.png");
-        backgroundImage = new Sprite("uiAssets/bg_proto.png");
+        titleImage = new Sprite("uiAssets/Title.png");
+        backgroundImage = new Sprite("uiAssets/background.png");
         LoadMenuTiles();
     }
 
