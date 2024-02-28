@@ -45,6 +45,7 @@
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MyGame.cs" />
+    <Compile Include="ReactionParticle.cs" />
     <Compile Include="Tiles\Stroke.cs" />
     <Compile Include="Ui\Ui.cs" />
     <Compile Include="Ui\MenuTile.cs" />

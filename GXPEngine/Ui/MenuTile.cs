@@ -19,7 +19,7 @@ class MenuTile : Sprite
     public Level level;
 
 
-    public MenuTile( String levelName ) : base("../../assets/uiAssets/SongTile_proto.png")
+    public MenuTile( String levelName ) : base("uiAssets/SongTile_proto.png")
     {
         this.levelName = levelName;
         this.levelAssets += levelName;
