@@ -10,7 +10,7 @@ using GXPEngine.Core;
 
 class MenuTile : Sprite
 {
-    string levelAssets = "../../assets/levelAssets/";
+    string levelAssets = "levelAssets/";
     string levelName;
     string artLocation;
     string soundLocation;
