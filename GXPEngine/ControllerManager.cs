@@ -37,7 +37,7 @@ public class ControllerManager
         int.TryParse(inputParts[1].Substring(inputParts[1].IndexOf(':') + 1), out currentRecordLeftValue);
         int.TryParse(inputParts[2].Substring(inputParts[2].IndexOf(':') + 1), out currentButtonValue);
 
-        //Console.WriteLine($"{currentRecordRightValue} {currentRecordLeftValue} {currentButtonValue}");
+        //Console.WriteLine($"{currentRecordRightValue}");
     }
 
     public static int GetRightRecordValue() => currentRecordRightValue;
