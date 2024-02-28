@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 public class Level : GameObject
 {
@@ -13,6 +14,8 @@ public class Level : GameObject
     private List<Sound> melody;
     private AnimationSprite crowd;
     private Sound backgroundMusic;
+    private SoundChannel backgroundMusicChannel;
+    private Timer timer;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -39,9 +42,11 @@ public class Level : GameObject
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
     private bool levelLoaded = false;
+    private bool levelEnded = false;
     private Dictionary<string, string> levelConfig;
 
     private int bgTopChildIndex;
+    private int frameCounter = 0;
 
     public Level(int bpm)
     {
@@ -78,11 +83,8 @@ public class Level : GameObject
 
     private void Update()
     {
-        if ( levelLoaded == false )
-        {
-            return;
-        }
-
+        if ( levelLoaded == false ) return;
+        if ( levelEnded == true )   UnLoadLevel();
         crowd.Animate();
 
         //Spawn the tile with the random sound from the list based on bpm
@@ -108,7 +110,24 @@ public class Level : GameObject
     {
         //Load level assets
         levelLoaded = true;
+        timer = new Timer( int.Parse(levelConfig["Duration"]) * 1000 );
+        timer.Elapsed += (sender, e) => { levelEnded = true; };
+        timer.Start();
         PlayBackgroundMusic();
+    }
+
+    public void UnLoadLevel()
+    {
+        backgroundMusicChannel.Stop();
+        levelLoaded = false;
+        Ui ui = new Ui();
+
+        foreach (GameObject child in GetChildren())
+        {
+            child.Destroy();
+        }
+        
+        parent.AddChild(ui);        
     }
 
     private void ManageTileSpawning()
@@ -256,6 +275,6 @@ public class Level : GameObject
 
     void PlayBackgroundMusic()
     {
-        backgroundMusic.Play();
+        backgroundMusicChannel = backgroundMusic.Play(); 
     }
 }
