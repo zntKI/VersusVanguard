@@ -52,20 +52,22 @@ public class StrokeTile : Tile
         int distanceFromRecordCenter = (int)Mathf.Abs((shouldMoveLeft ? leftRecordCoor.y : rightRecordCoor.y) - this.y);
 
         //Checks if the player has stopped 'spinning' the record
-        if (distanceFromRecordCenter <= reactionDistance && shouldStopMoving.Item1 && !Input.GetKey(shouldStopMoving.Item2))
+        if (distanceFromRecordCenter <= reactionDistance && shouldStopMoving.Item1 &&
+            (shouldMoveLeft ? ControllerManager.GetLeftRecordValue() != shouldStopMoving.Item2 : ControllerManager.GetRightRecordValue() != shouldStopMoving.Item2) /*!Input.GetKey(shouldStopMoving.Item2)*/)
         {
             shouldStopMoving = new Tuple<bool, int>(false, 0);
             hasAlreadyStopped = true;
         }
 
-        bool conditionLeftLane = shouldMoveLeft && ((isLeft && Input.GetKey(Key.A)) || (!isLeft && Input.GetKey(Key.D)));
-        bool conditionRightLane = !shouldMoveLeft && ((isLeft && Input.GetKey(Key.J)) || (!isLeft && Input.GetKey(Key.L)));
+        bool conditionLeftLane = shouldMoveLeft && ((isLeft && (Input.GetKey(Key.A) || ControllerManager.GetLeftRecordValue() == -1)) || (!isLeft && (Input.GetKey(Key.D) || ControllerManager.GetLeftRecordValue() == 1)));
+        bool conditionRightLane = !shouldMoveLeft && ((isLeft && (Input.GetKey(Key.J) || ControllerManager.GetRightRecordValue() == -1)) || (!isLeft && (Input.GetKey(Key.L) || ControllerManager.GetRightRecordValue() == 1)));
         if ((conditionLeftLane || conditionRightLane)
             && distanceFromRecordCenter <= reactionDistance)
         {
             if (!shouldStopMoving.Item1 && !hasAlreadyStopped)
             {
-                int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
+                //int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
+                int keyCode = isLeft ? -1 : 1;
                 shouldStopMoving = new Tuple<bool, int>(true, keyCode);
                 currentTileStoppedY = (int)this.y;
 
