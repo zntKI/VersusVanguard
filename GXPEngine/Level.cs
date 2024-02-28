@@ -11,6 +11,8 @@ public class Level : GameObject
 {
     //The different notes that can be played
     private List<Sound> melody;
+    private Sound backgroundMusic;
+    private SoundChannel backgroundMusicChannel;
 
     private Vector2 leftDiscCoor = new Vector2(444, 640);
     private Vector2 rightDiscCoor = new Vector2(920, 640);
@@ -227,6 +229,10 @@ public class Level : GameObject
 =======
 
         Console.WriteLine(score);
->>>>>>> test
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        backgroundMusicChannel = backgroundMusic.Play();
     }
 }
