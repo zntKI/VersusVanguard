@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 public class Tile : Sprite
 {
+    private Vector2 spawnPointIfGoingLeft = new Vector2(630, 217);
+    private Vector2 spawnPointIfGoingRight = new Vector2(731, 217);
+
     protected bool shouldMoveLeft;
 
-    private float speed;
-    private float sidewaysMoveAmount;
-    private float scaleIncrement;
+    protected float speed;
+    protected float sidewaysMoveAmount;
+    protected float scaleIncrement;
 
     private string soundPath;
 
@@ -20,11 +23,13 @@ public class Tile : Sprite
     public Tile(string filename, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath) : base(filename, false, false)
     {
         SetOrigin(width / 2, height / 2);
-        SetScaleXY(scale * 2);//Remove that after having the final assets
+
+        float startScale = scale / 2;
+        SetScaleXY(startScale);
 
         this.speed = speed;
         this.shouldMoveLeft = shouldMoveLeft;
-        SetXY(shouldMoveLeft ? game.width / 2 - width : game.width / 2 + width, 0);//Fix that after having established the final spawn pos of the records
+        SetXY(shouldMoveLeft ? spawnPointIfGoingLeft.x : spawnPointIfGoingRight.x, spawnPointIfGoingLeft.y);
 
         float distanceToMoveX = shouldMoveLeft ? (this.x - leftDiscCoor.x) : (rightDiscCoor.x - this.x);
         float distanceToMoveY = shouldMoveLeft ? (leftDiscCoor.y - this.y) : (rightDiscCoor.y - this.y);
@@ -32,8 +37,7 @@ public class Tile : Sprite
         float framesToMove = distanceToMoveY / speed;
         sidewaysMoveAmount = distanceToMoveX / framesToMove;
 
-        float endScaleAmount = (177 * scale) / width;
-        scaleIncrement = (endScaleAmount - scale) / framesToMove;
+        scaleIncrement = startScale / framesToMove;
 
         this.soundPath = soundPath;
     }
