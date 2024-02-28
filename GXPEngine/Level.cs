@@ -12,6 +12,8 @@ public class Level : GameObject
     //The different notes that can be played
     private List<Sound> melody;
     private AnimationSprite crowd;
+    private Sound backgroundMusic;
+    private SoundChannel backgroundMusicChannel;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -76,7 +78,7 @@ public class Level : GameObject
 
     private void Update()
     {
-        if (levelLoaded == true)
+        if ( levelLoaded == false )
         {
             return;
         }
@@ -105,7 +107,6 @@ public class Level : GameObject
         if (rightLaneWaitTimeMS != 0)
             rightLaneWaitTimeMSCounter += Time.deltaTime;
 
-
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
         {
             //Spawn tile
@@ -125,6 +126,7 @@ public class Level : GameObject
             randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
         }
     }
+
 
     private Tile Spawn(bool shouldTileMoveLeft)
     {

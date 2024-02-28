@@ -10,6 +10,7 @@ public class StrokeTile : Tile
 {
     private bool isLeft;
     private float strokeLength;
+
     private Stroke stroke;
     private float strokeXOffset = 45f;  //Temp variables(remove when having actual assets)
     private float strokeYOffset = -65f;//Temp variables(remove when having actual assets)
