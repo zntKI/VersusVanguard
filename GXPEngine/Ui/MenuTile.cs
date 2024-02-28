@@ -12,7 +12,7 @@ class MenuTile : Sprite
     public Level level;
 
 
-    public MenuTile( Dictionary<string, string> levelConfig ) : base("../../assets/uiAssets/SongTile_proto.png")
+    public MenuTile( Dictionary<string, string> levelConfig ) : base("uiAssets/SongTile_proto.png")
     {
         this.levelConfig = levelConfig;
         this.levelName = levelConfig["levelName"];
@@ -24,7 +24,7 @@ class MenuTile : Sprite
 			initializeFromTexture(Texture2D.GetInstance( levelConfig["Thumbnail"] , false ));
     }
 
-    public MenuTile() : base("../../assets/uiAssets/SongTile_proto.png")
+    public MenuTile() : base("uiAssets/SongTile_proto.png")
     {
         // Empty
     }
