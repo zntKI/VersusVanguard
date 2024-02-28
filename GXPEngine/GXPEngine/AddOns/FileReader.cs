@@ -5,13 +5,15 @@ using GXPEngine;
 
 namespace GXPEngine
 {
-    public class FileReader
+    class FileReader
     {
 
         String filename;
         List<String> modes = new List<string> { "json", "xml", "txt" };
         String mode;
         XmlDocument xmlDoc = new XmlDocument();
+        XmlElement rootNode;
+        List<MenuTile> menuTiles = new List<MenuTile>();
         
 
         public FileReader( string filename, string mode = "xml")
@@ -27,11 +29,17 @@ namespace GXPEngine
             }  
         }
         
-        public void ReadFile()
+        private void ReadFile()
         {
             if (mode == "json") ReadJson();
             if (mode == "xml")  ReadXml();
             if (mode == "txt")  ReadTxt();
+        }
+
+        public List<MenuTile> GenerateMenuTiles()
+        {
+            ReadFile();
+            return menuTiles;
         }
 
 
@@ -62,7 +70,15 @@ namespace GXPEngine
         private void ReadXml()
         {
             xmlDoc.Load(filename);
-            Console.WriteLine( xmlDoc.DocumentElement.SelectSingleNode("LevelConfig/Level1").ChildNodes );
+            rootNode = xmlDoc.DocumentElement;
+            foreach (XmlNode node in rootNode.ChildNodes)
+            {
+                menuTiles.Add(new MenuTile(node.Name));
+                foreach (XmlNode childNode in node.ChildNodes)
+                {
+                    Console.WriteLine(childNode.InnerText);
+                }
+            }
         }
     }
 }

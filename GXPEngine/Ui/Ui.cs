@@ -13,6 +13,7 @@ class Ui : GameObject
     int tilesToRender;
     int[] renderedTiles;
     int currentTile = 0;
+	FileReader fileReader;		
     int[] bottomCenter = new int[2]   { 683, 380 };  // NOTE: this + or - 341.5 from center
     int[] bottomLeftUp = new int[2]   { 342, 360 };  // NOTE: this + or - 170.75 from sides
     int[] bottomRightUp = new int[2]  { 1024, 360 };
@@ -24,8 +25,9 @@ class Ui : GameObject
 
     // dynamically load menuTiles
 
-    public Ui()
+    public Ui( string configs = "levelConfig.xml" )
     {
+        fileReader = new FileReader( configs );
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite(this.assets+"/uiAssets/Title_proto.png");
         backgroundImage = new Sprite(this.assets+"/uiAssets/bg_proto.png");
@@ -44,10 +46,7 @@ class Ui : GameObject
 
     void LoadMenuTiles()
     {
-        menuTiles[0] = new MenuTile( "level1" );
-        menuTiles[1] = new MenuTile( "level2" );
-        menuTiles[2] = new MenuTile( "level3" );
-
+        menuTiles = fileReader.GenerateMenuTiles().ToArray();
         tilesToRender = menuTiles.Length;
     }
 
