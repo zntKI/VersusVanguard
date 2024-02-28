@@ -193,7 +193,50 @@ public class Level : GameObject
         foreach (var tile in tilesInScene)
         {
             //Check if the current tile in the reaction zone
-            score += ((Tile)tile).CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
+            Tile currentTile = (Tile)tile;
+            int scoreIncrement = currentTile.CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
+
+            ReactionParticle reactionParticle;
+            if (scoreIncrement >= 40)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectPerfect.png", 200);
+
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+            else if (scoreIncrement >= 20)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectGreat.png", 200);
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+            else if (scoreIncrement > 0)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectNice.png", 200);
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+
+
+            score += scoreIncrement;
         }
     }
 }
