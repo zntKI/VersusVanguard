@@ -13,7 +13,6 @@ public class Level : GameObject
     private List<Sound> melody;
     private AnimationSprite crowd;
     private Sound backgroundMusic;
-    private SoundChannel backgroundMusicChannel;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -39,7 +38,8 @@ public class Level : GameObject
     private int score;
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
-    public bool levelLoaded = false;
+    private bool levelLoaded = false;
+    private Dictionary<string, string> levelConfig;
 
     private int bgTopChildIndex;
 
@@ -92,11 +92,23 @@ public class Level : GameObject
         scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
     }
 
+    public void SetLevelAssets()
+    {
+        this.backgroundMusic = new Sound(levelConfig["Song"], false, false);
+
+    }
+
+    public void LoadLevelConfig( Dictionary<string, string> levelConfig)
+    {
+        this.levelConfig = levelConfig;
+    }
+    
+
     public void LoadLevel()
     {
         //Load level assets
-        //LoadLevelConfig();
         levelLoaded = true;
+        PlayBackgroundMusic();
     }
 
     private void ManageTileSpawning()
@@ -240,5 +252,10 @@ public class Level : GameObject
 
             score += scoreIncrement;
         }
+    }
+
+    void PlayBackgroundMusic()
+    {
+        backgroundMusic.Play();
     }
 }
