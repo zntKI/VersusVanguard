@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Xml;
 using GXPEngine;
 
+/*
+    - Make a hashmap list for the menu tiles
+    - Get the level name and use it for the menu tile parameter
+    - Assign the rest of the hashmap to the menu tile
+*/
+
 namespace GXPEngine
 {
     class FileReader
@@ -13,7 +19,7 @@ namespace GXPEngine
         String mode;
         XmlDocument xmlDoc = new XmlDocument();
         XmlElement rootNode;
-        List<MenuTile> menuTiles = new List<MenuTile>();
+        List<Dictionary<string,string>> menuTiles = new List<Dictionary<string,string>>();
         
 
         public FileReader( string filename, string mode = "xml")
@@ -36,7 +42,7 @@ namespace GXPEngine
             if (mode == "txt")  ReadTxt();
         }
 
-        public List<MenuTile> GenerateMenuTiles()
+        public List<Dictionary<string,string>> GenerateMenuTiles()
         {
             ReadFile();
             return menuTiles;
@@ -73,11 +79,14 @@ namespace GXPEngine
             rootNode = xmlDoc.DocumentElement;
             foreach (XmlNode node in rootNode.ChildNodes)
             {
-                menuTiles.Add(new MenuTile(node.Name));
+                Dictionary<string,string> menuTile = new Dictionary<string,string>();
+                menuTile.Add("levelName", node.Name);
+
                 foreach (XmlNode childNode in node.ChildNodes)
                 {
-                    Console.WriteLine(childNode.InnerText);
+                    menuTile.Add(childNode.Name, childNode.InnerText);
                 }
+                menuTiles.Add(menuTile);
             }
         }
     }

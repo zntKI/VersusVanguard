@@ -32,8 +32,8 @@ public class Level : GameObject
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
 
     private bool levelLoaded = false;
-    private string assetsLocation;
-    private string songLocation;
+    private Dictionary<string, string> levelConfig;
+    private Sprite background;
 
     public Level(int bpm)
     {
@@ -42,7 +42,7 @@ public class Level : GameObject
         spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);//Possible difficulty adjustments
         randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
 
-        AddChild(new Sprite(this.assets + "/Background_sketch.png", false, false));//Figure out better solution for background
+        //AddChild(new Sprite(this.assets + "/Background_sketch.png", false, false));//Figure out better solution for background
         
         //Temporary way to display score (think of a better way after the playtesting session)
         scoreDisplayer = new EasyDraw(200, 70, false);
@@ -70,18 +70,23 @@ public class Level : GameObject
         scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
     }
 
-    public void SetLevelAssets(string assetsLocation, string songLocation)
+    public void SetLevelAssets()
     {
-        this.assetsLocation = assetsLocation;
-        this.songLocation = songLocation;
-        this.backgroundMusic = new Sound(songLocation, false, false);
+        this.background = new Sprite(levelConfig["Background"], false, false);
+        this.backgroundMusic = new Sound(levelConfig["Song"], false, false);
+
+        AddChild(background);
+    }
+
+    public void LoadLevelConfig( Dictionary<string, string> levelConfig)
+    {
+        this.levelConfig = levelConfig;
     }
     
 
     public void LoadLevel()
     {
         //Load level assets
-        //LoadLevelConfig();
         levelLoaded = true;
         PlayBackgroundMusic();
     }

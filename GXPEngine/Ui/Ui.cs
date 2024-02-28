@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GXPEngine;
 using GXPEngine.Core;
 
@@ -46,7 +47,22 @@ class Ui : GameObject
 
     void LoadMenuTiles()
     {
-        menuTiles = fileReader.GenerateMenuTiles().ToArray();
+        /*  // NOTE : Uncomment this to debug the menuTiles
+            menuTiles[0] = new MenuTile("level1"); 
+            menuTiles[1] = new MenuTile("level2"); 
+            menuTiles[2] = new MenuTile("level3"); 
+        */
+
+
+        List<Dictionary<string,string>> ganeratedMenuTiles = fileReader.GenerateMenuTiles();
+        int menuTileIndex = 0;
+        foreach (Dictionary<string,string> tile in ganeratedMenuTiles)
+        {
+            menuTiles[menuTileIndex] = new MenuTile( tile );
+            menuTileIndex++;
+        }
+
+
         tilesToRender = menuTiles.Length;
     }
 

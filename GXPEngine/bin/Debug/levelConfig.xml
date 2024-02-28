@@ -2,25 +2,25 @@
 <LevelConfig>
     <Level1>
         <Name>level1</Name>
-        <BackgroundSong>background.png</BackgroundSong>
-        <Thumbnail>art.png</Thumbnail>
-        <Song>song.mp3</Song>
+        <Background>background_sketch.png</Background>
+        <Thumbnail>levelAssets/level1/art.png</Thumbnail>
+        <Song>levelAssets/level1/song.mp3</Song>
         <Difficulty>easy</Difficulty>
     </Level1>
 
     <Level2>
         <Name>level2</Name>
-        <BackgroundSong>background.png</BackgroundSong>
-        <Thumbnail>art.png</Thumbnail>
-        <Song>song.mp3</Song>
+        <Background>background_sketch.png</Background>
+        <Thumbnail>levelAssets/level2/art.png</Thumbnail>
+        <Song>levelAssets/level2/song.mp3</Song>
         <Difficulty>medium</Difficulty>
     </Level2>
 
     <Level3>
         <Name>level3</Name>
-        <BackgroundSong>background.png</BackgroundSong>
-        <Thumbnail>art.png</Thumbnail>
-        <Song>song.mp3</Song>
+        <Background>background_sketch.png</Background>
+        <Thumbnail>levelAssets/level3/art.png</Thumbnail>
+        <Song>levelAssets/level3/song.mp3</Song>
         <Difficulty>hard</Difficulty>
     </Level3>
 </LevelConfig>
