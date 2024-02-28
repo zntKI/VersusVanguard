@@ -12,6 +12,8 @@ public class Level : GameObject
     //The different notes that can be played
     private List<Sound> melody;
     private AnimationSprite crowd;
+    private Sound backgroundMusic;
+    private SoundChannel backgroundMusicChannel;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -76,7 +78,7 @@ public class Level : GameObject
 
     private void Update()
     {
-        if (levelLoaded == true)
+        if ( levelLoaded == false )
         {
             return;
         }
@@ -105,7 +107,6 @@ public class Level : GameObject
         if (rightLaneWaitTimeMS != 0)
             rightLaneWaitTimeMSCounter += Time.deltaTime;
 
-
         if (counterTimeSpawnTileMS >= randomTimeSpawnTileMS)
         {
             //Spawn tile
@@ -125,6 +126,7 @@ public class Level : GameObject
             randomTimeSpawnTileMS = Utils.Random(spawnTimeMin, timeBetweenBeatsMS);
         }
     }
+
 
     private Tile Spawn(bool shouldTileMoveLeft)
     {
@@ -193,7 +195,50 @@ public class Level : GameObject
         foreach (var tile in tilesInScene)
         {
             //Check if the current tile in the reaction zone
-            score += ((Tile)tile).CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
+            Tile currentTile = (Tile)tile;
+            int scoreIncrement = currentTile.CheckPosition(reactionDistance, leftDiscCoor, rightDiscCoor);
+
+            ReactionParticle reactionParticle;
+            if (scoreIncrement >= 40)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectPerfect.png", 200);
+
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+            else if (scoreIncrement >= 20)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectGreat.png", 200);
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+            else if (scoreIncrement > 0)
+            {
+                reactionParticle = new ReactionParticle("levelTilesAssets/effectNice.png", 200);
+
+                reactionParticle.SetScale(0.5f, 1f).
+                    SetVelocity(0, Utils.Random(-0.1f, 0f));
+
+                reactionParticle.SetXY(Utils.Random(currentTile.x - currentTile.width / 2, currentTile.x + currentTile.width / 2),
+                    currentTile.y - currentTile.height / 2 - 40);
+                reactionParticle.rotation = Utils.Random(-25, 26);
+                AddChild(reactionParticle);
+            }
+
+
+            score += scoreIncrement;
         }
     }
 }

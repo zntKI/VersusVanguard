@@ -10,12 +10,15 @@ public class StrokeTile : Tile
 {
     private bool isLeft;
     private float strokeLength;
+
     private Stroke stroke;
     private float strokeXOffset = 45f;  //Temp variables(remove when having actual assets)
     private float strokeYOffset = -65f;//Temp variables(remove when having actual assets)
 
     private Tuple<bool, int> shouldStopMoving = new Tuple<bool, int>(false, 0);
     private int currentTileStoppedY;
+
+    private bool hasAlreadyStopped;
 
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
@@ -26,6 +29,8 @@ public class StrokeTile : Tile
         AddChild(stroke);
 
         stroke.SetXY(shouldMoveLeft ? strokeXOffset : -strokeXOffset, strokeYOffset);
+
+        hasAlreadyStopped = false;
     }
 
     private void Update()
@@ -48,14 +53,17 @@ public class StrokeTile : Tile
 
         //Checks if the player has stopped 'spinning' the record
         if (distanceFromRecordCenter <= reactionDistance && shouldStopMoving.Item1 && !Input.GetKey(shouldStopMoving.Item2))
+        {
             shouldStopMoving = new Tuple<bool, int>(false, 0);
+            hasAlreadyStopped = true;
+        }
 
         bool conditionLeftLane = shouldMoveLeft && ((isLeft && Input.GetKey(Key.A)) || (!isLeft && Input.GetKey(Key.D)));
         bool conditionRightLane = !shouldMoveLeft && ((isLeft && Input.GetKey(Key.J)) || (!isLeft && Input.GetKey(Key.L)));
         if ((conditionLeftLane || conditionRightLane)
             && distanceFromRecordCenter <= reactionDistance)
         {
-            if (!shouldStopMoving.Item1)
+            if (!shouldStopMoving.Item1 && !hasAlreadyStopped)
             {
                 int keyCode = conditionLeftLane ? (isLeft ? Key.A : Key.D) : (isLeft ? Key.J : Key.L);//Change that once we have the real controller
                 shouldStopMoving = new Tuple<bool, int>(true, keyCode);
@@ -65,7 +73,8 @@ public class StrokeTile : Tile
                     DetachStroke();
             }
 
-            return Time.time % 8 == 0 ? reactionDistance - distanceFromRecordCenter : 0;
+            if (!hasAlreadyStopped)
+                return Time.time % 8 == 0 ? reactionDistance - distanceFromRecordCenter : 0;
         }
         return 0;
     }

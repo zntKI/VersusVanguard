@@ -1,0 +1,9 @@
+<LevelConfig>
+    <Level1>
+        <Name>Level1</Name>
+        <Background>background.png</Background>
+        <Thumbnail>art.png</Thumbnail>
+        <Song>song.mp3</Song>
+    </Level1>
+</LevelConfig>
+
