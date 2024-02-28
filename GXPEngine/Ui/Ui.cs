@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GXPEngine;
 using GXPEngine.Core;
 
@@ -13,6 +14,7 @@ class Ui : GameObject
     int tilesToRender;
     int[] renderedTiles;
     int currentTile = 0;
+	FileReader fileReader;		
     int[] bottomCenter = new int[2]   { 683, 380 };  // NOTE: this + or - 341.5 from center
     int[] bottomLeftUp = new int[2]   { 342, 360 };  // NOTE: this + or - 170.75 from sides
     int[] bottomRightUp = new int[2]  { 1024, 360 };
@@ -24,8 +26,9 @@ class Ui : GameObject
 
     // dynamically load menuTiles
 
-    public Ui()
+    public Ui( string config = "levelConfig.xml" )
     {
+        fileReader = new FileReader( config );
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite("uiAssets/Title_proto.png");
         backgroundImage = new Sprite("uiAssets/bg_proto.png");
@@ -44,9 +47,21 @@ class Ui : GameObject
 
     void LoadMenuTiles()
     {
-        menuTiles[0] = new MenuTile( "level1" );
-        menuTiles[1] = new MenuTile( "level2" );
-        menuTiles[2] = new MenuTile( "level3" );
+        /*  // NOTE : Uncomment this to debug the menuTiles
+            menuTiles[0] = new MenuTile("level1"); 
+            menuTiles[1] = new MenuTile("level2"); 
+            menuTiles[2] = new MenuTile("level3"); 
+        */
+
+
+        List<Dictionary<string,string>> ganeratedMenuTiles = fileReader.GenerateMenuTiles();
+        int menuTileIndex = 0;
+        foreach (Dictionary<string,string> tile in ganeratedMenuTiles)
+        {
+            menuTiles[menuTileIndex] = new MenuTile( tile );
+            menuTileIndex++;
+        }
+
 
         tilesToRender = menuTiles.Length;
     }

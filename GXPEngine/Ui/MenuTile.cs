@@ -1,40 +1,30 @@
 using System;
+using System.Collections.Generic;
 using GXPEngine;
 using GXPEngine.Core;
 
-/*
-    Should have track image, title, and dificulty
-    Difficulty should/could have a small png ( higher the difficulty, the higher the png count )
-    write method to mount level assets to level class ( in constructor perhaps ?)
-*/
-
 class MenuTile : Sprite
 {
-    string levelAssets = "levelAssets/";
     string levelName;
-    string artLocation;
-    string soundLocation;
+    Dictionary<string, string> levelConfig;
     // bool   audioPreview = false;
 
     public Level level;
 
 
-    public MenuTile( String levelName ) : base("uiAssets/SongTile_proto.png")
+    public MenuTile( Dictionary<string, string> levelConfig ) : base("uiAssets/SongTile_proto.png")
     {
-        this.levelName = levelName;
-        this.levelAssets += levelName;
-        this.artLocation = levelAssets + "/art.png";
-        this.soundLocation = levelAssets + "/sound.mp3";
+        this.levelConfig = levelConfig;
+        this.levelName = levelConfig["levelName"];
 
         if (Game.main == null) {
 				throw new Exception ("Sprites cannot be created before creating a Game instance.");
 			}
 
-			name = artLocation;
-			initializeFromTexture(Texture2D.GetInstance( artLocation , false ));
+			initializeFromTexture(Texture2D.GetInstance( levelConfig["Thumbnail"] , false ));
     }
 
-    public MenuTile() : base("../../assets/uiAssets/SongTile_proto.png")
+    public MenuTile() : base("uiAssets/SongTile_proto.png")
     {
         // Empty
     }
@@ -47,13 +37,9 @@ class MenuTile : Sprite
     public void LoadLevel()
     {
         level = new Level(60);
+        level.LoadLevelConfig( levelConfig );
+        level.SetLevelAssets();
         parent.AddChild(level);
     }
-
-    void LoadLevelConfig()
-    {
-        // Empty
-    }
-
 }
 
