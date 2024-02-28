@@ -58,13 +58,10 @@ namespace GXPEngine
         {
             xmlDoc.Load(filename);
             XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("LevelConfig/Level1");
-            
-            // print text of each node
-            foreach ( XmlNode node in nodeList)
+            foreach (XmlNode node in nodeList)
             {
-                Console.WriteLine("test");
+                Console.WriteLine( node );
             }
-
         }
     }
 }
