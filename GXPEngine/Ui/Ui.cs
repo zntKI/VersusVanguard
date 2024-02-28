@@ -26,9 +26,9 @@ class Ui : GameObject
 
     // dynamically load menuTiles
 
-    public Ui( string configs = "levelConfig.xml" )
+    public Ui( string config = "levelConfig.xml" )
     {
-        fileReader = new FileReader( configs );
+        fileReader = new FileReader( config );
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite("uiAssets/Title_proto.png");
         backgroundImage = new Sprite("uiAssets/bg_proto.png");

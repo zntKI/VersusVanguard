@@ -96,10 +96,10 @@ public class Level : GameObject
 
     public void SetLevelAssets()
     {
-        this.background = new Sprite(levelConfig["Background"], false, false);
+        // this.background = new Sprite(levelConfig["Background"], false, false);
         this.backgroundMusic = new Sound(levelConfig["Song"], false, false);
 
-        AddChild(background);
+        // AddChild(background);
     }
 
     public void LoadLevelConfig( Dictionary<string, string> levelConfig)

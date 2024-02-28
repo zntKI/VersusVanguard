@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Xml;
 using GXPEngine;
+using GXPEngine.Core;
 
 /*
     - Make a hashmap list for the menu tiles
