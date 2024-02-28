@@ -4,6 +4,7 @@
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level1/art.png</Thumbnail>
         <Song>levelAssets/level1/song.mp3</Song>
+        <Duration>60</Duration>
         <Difficulty>easy</Difficulty>
     </Level1>
 
@@ -12,6 +13,7 @@
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level2/art.png</Thumbnail>
         <Song>levelAssets/level2/song.mp3</Song>
+        <Duration>15</Duration>
         <Difficulty>medium</Difficulty>
     </Level2>
 
@@ -20,6 +22,7 @@
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level3/art.png</Thumbnail>
         <Song>levelAssets/level3/song.mp3</Song>
+        <Duration>60</Duration>
         <Difficulty>hard</Difficulty>
     </Level3>
 </LevelConfig>
