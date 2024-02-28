@@ -7,9 +7,9 @@ public class ControllerManager
 {
     private SerialPort port;
 
-    private int currentRecordRightValue;
-    private int currentRecordLeftValue;
-    private int currentButtonValue;
+    private static int currentRecordRightValue;
+    private static int currentRecordLeftValue;
+    private static int currentButtonValue;
 
     public ControllerManager(string portName, int baudRate=9600)
 	{
@@ -21,7 +21,7 @@ public class ControllerManager
         port.Open();
     }
 
-    public void ReadInput()
+    public void Step()
     {
         string line = port.ReadLine();
 
@@ -33,19 +33,14 @@ public class ControllerManager
         if (inputParts.Length != 3)
             return;
 
+        int.TryParse(inputParts[0].Substring(inputParts[0].IndexOf(':') + 1), out currentRecordRightValue);
+        int.TryParse(inputParts[1].Substring(inputParts[1].IndexOf(':') + 1), out currentRecordLeftValue);
+        int.TryParse(inputParts[2].Substring(inputParts[2].IndexOf(':') + 1), out currentButtonValue);
 
-        /*currentRecordRightValue = */int.TryParse(inputParts[0].Substring(inputParts[0].IndexOf(':') + 1), out currentRecordRightValue);
-        /*currentRecordLeftValue = */int.TryParse(inputParts[1].Substring(inputParts[1].IndexOf(':') + 1), out currentRecordLeftValue);
-        /*currentButtonValue = */int.TryParse(inputParts[2].Substring(inputParts[2].IndexOf(':') + 1), out currentButtonValue);
-
-        Console.WriteLine($"{inputParts[0]} {currentRecordRightValue}");
-
-        //try
-        //{
-        //}
-        //catch (Exception)
-        //{
-        //    throw new Exception("The provided input from the Arduino is not in the right format");
-        //}
+        //Console.WriteLine($"{currentRecordRightValue} {currentRecordLeftValue} {currentButtonValue}");
     }
+
+    public static int GetRightRecordValue() => currentRecordRightValue;
+    public static int GetLeftRecordValue() => currentRecordLeftValue;
+    public static int GetButtonValue() => currentButtonValue;
 }
