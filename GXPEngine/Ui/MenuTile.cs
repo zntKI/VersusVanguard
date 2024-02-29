@@ -6,7 +6,9 @@ using GXPEngine.Core;
 class MenuTile : Sprite
 {
     string levelName;
+    FileReader scoresReader;
     Dictionary<string, string> levelConfig;
+    public string[] levelScores;
     // bool   audioPreview = false;
 
     public Level level;
@@ -16,6 +18,8 @@ class MenuTile : Sprite
     {
         this.levelConfig = levelConfig;
         this.levelName = levelConfig["levelName"];
+        this.scoresReader = new FileReader( this.levelConfig["Scores"], "txt" );
+        this.levelScores = scoresReader.UpdateScores();
 
         if (Game.main == null) {
 				throw new Exception ("Sprites cannot be created before creating a Game instance.");

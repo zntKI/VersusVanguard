@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Text;
 using GXPEngine;
 using GXPEngine.Core;
 
@@ -12,6 +14,7 @@ class Ui : GameObject
     Sprite extraInstructions;
     Sprite[] backgroundTiles = new Sprite[2];
     MenuTile[] menuTiles = new MenuTile[3];
+    EasyDraw scoreDisplayer;
     int tilesToRender;
     int[] renderedTiles;
     int currentTile = 0;
@@ -161,6 +164,28 @@ class Ui : GameObject
         {
             parent.AddChild( menuTiles[tile] );
         }
+
+        RenderScores();
+    }
+
+    void RenderScores()
+    {
+        // render scores
+        string[] scores = menuTiles[currentTile].levelScores;
+        string finalScore = "";
+
+        scoreDisplayer = new EasyDraw(200, 70, false);
+        scoreDisplayer.TextSize(15);
+        scoreDisplayer.Fill(Color.White);
+
+        foreach ( string score in scores )
+        {
+            // Console.WriteLine( score );
+            finalScore = finalScore + score + "\n";
+        }
+
+        scoreDisplayer.Text(finalScore, true);
+        parent.AddChild(scoreDisplayer);
     }
 
     void SetTilePositions()
