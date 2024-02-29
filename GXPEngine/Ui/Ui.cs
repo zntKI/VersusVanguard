@@ -75,16 +75,20 @@ class Ui : GameObject
             hasChangedTile = new Tuple<bool, bool>(false, false);
         }
 
-        if ( (ControllerManager.GetLeftRecordValue() == -1 || ControllerManager.GetRightRecordValue() == -1) &&
+        if ( (ControllerManager.GetLeftRecordValue() == 1 || ControllerManager.GetRightRecordValue() == 1) &&
             !hasChangedTile.Item1/*Input.GetKeyDown(Key.LEFT)*/ )
         {
             currentTile = currentTile == 0 ? renderedTiles.Length-1 : currentTile - 1;
-            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == -1 ? true : false);
-        } else if ( (ControllerManager.GetLeftRecordValue() == 1 || ControllerManager.GetRightRecordValue() == 1) &&
+            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == 1 ? true : false);
+
+            new Sound("uiAssets/ui_switch.wav").Play();
+        } else if ( (ControllerManager.GetLeftRecordValue() == -1 || ControllerManager.GetRightRecordValue() == -1) &&
             !hasChangedTile.Item1/*Input.GetKeyDown(Key.RIGHT)*/ )
         {
             currentTile = currentTile == renderedTiles.Length-1 ? 0 : currentTile + 1;
-            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == 1 ? true : false);
+            hasChangedTile = new Tuple<bool, bool>(true, ControllerManager.GetLeftRecordValue() == -1 ? true : false);
+
+            new Sound("uiAssets/ui_switch.wav").Play();
         } else if ( Input.GetKeyDown(Key.SPACE) )
         {
             // Maybe use to enable audio preview or debug mode ?

@@ -11,7 +11,8 @@ using System.Timers;
 public class Level : GameObject
 {
     //The different notes that can be played
-    private List<Sound> melody;
+    private List<string> sounds;
+
     private AnimationSprite crowd;
     private Sound backgroundMusic;
     private SoundChannel backgroundMusicChannel;
@@ -83,8 +84,8 @@ public class Level : GameObject
 
     private void Update()
     {
-        if ( levelLoaded == false ) return;
-        if ( levelEnded == true )   UnLoadLevel();
+        if (levelLoaded == false) return;
+        if (levelEnded == true) UnLoadLevel();
         crowd.Animate();
 
         //Spawn the tile with the random sound from the list based on bpm
@@ -97,20 +98,25 @@ public class Level : GameObject
     public void SetLevelAssets()
     {
         this.backgroundMusic = new Sound(levelConfig["Song"], false, false);
-
+        sounds = new List<string>()
+        {
+            "levelTilesAssets/sounds/soundbyte_3.mp3",
+            "levelTilesAssets/sounds/soundbyte_4.mp3",
+            "levelTilesAssets/sounds/soundbyte_5.mp3"
+        };
     }
 
-    public void LoadLevelConfig( Dictionary<string, string> levelConfig)
+    public void LoadLevelConfig(Dictionary<string, string> levelConfig)
     {
         this.levelConfig = levelConfig;
     }
-    
+
 
     public void LoadLevel()
     {
         //Load level assets
         levelLoaded = true;
-        timer = new Timer( int.Parse(levelConfig["Duration"]) * 1000 );
+        timer = new Timer(int.Parse(levelConfig["Duration"]) * 1000);
         timer.Elapsed += (sender, e) => { levelEnded = true; };
         timer.Start();
         PlayBackgroundMusic();
@@ -126,8 +132,8 @@ public class Level : GameObject
         {
             child.Destroy();
         }
-        
-        parent.AddChild(ui);        
+
+        parent.AddChild(ui);
     }
 
     private void ManageTileSpawning()
@@ -232,6 +238,11 @@ public class Level : GameObject
             ReactionParticle reactionParticle;
             if (scoreIncrement >= 40)
             {
+                if (!(currentTile is StrokeTile))
+                {
+                    new Sound(sounds[2]).Play();
+                }
+
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectPerfect.png", 200);
 
 
@@ -245,6 +256,11 @@ public class Level : GameObject
             }
             else if (scoreIncrement >= 20)
             {
+                if (!(currentTile is StrokeTile))
+                {
+                    new Sound(sounds[1]).Play();
+                }
+
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectGreat.png", 200);
 
                 reactionParticle.SetScale(0.5f, 1f).
@@ -257,6 +273,11 @@ public class Level : GameObject
             }
             else if (scoreIncrement > 0)
             {
+                if (!(currentTile is StrokeTile))
+                {
+                    new Sound(sounds[0]).Play();
+                }
+
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectNice.png", 200);
 
                 reactionParticle.SetScale(0.5f, 1f).
@@ -275,6 +296,6 @@ public class Level : GameObject
 
     void PlayBackgroundMusic()
     {
-        backgroundMusicChannel = backgroundMusic.Play(); 
+        backgroundMusicChannel = backgroundMusic.Play();
     }
 }

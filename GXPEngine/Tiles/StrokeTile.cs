@@ -20,6 +20,8 @@ public class StrokeTile : Tile
 
     private bool hasAlreadyStopped;
 
+    private List<string> sounds;
+
     public StrokeTile(string filename, bool isLeft, float speed, Vector2 leftDiscCoor, Vector2 rightDiscCoor, bool shouldMoveLeft, string soundPath, float strokeLength) : base(filename, speed, leftDiscCoor, rightDiscCoor, shouldMoveLeft, soundPath)
     {
         this.isLeft = isLeft;
@@ -31,6 +33,13 @@ public class StrokeTile : Tile
         stroke.SetXY(shouldMoveLeft ? strokeXOffset : -strokeXOffset, strokeYOffset);
 
         hasAlreadyStopped = false;
+
+        sounds = new List<string>()
+        {
+            "levelTilesAssets/sounds/soundbyte_3.mp3",
+            "levelTilesAssets/sounds/soundbyte_4.mp3",
+            "levelTilesAssets/sounds/soundbyte_5.mp3"
+        };
     }
 
     private void Update()
@@ -72,7 +81,12 @@ public class StrokeTile : Tile
                 currentTileStoppedY = (int)this.y;
 
                 if (stroke.parent == this)//Makes sure it detaches the stroke once
+                {
+                    int soundId = reactionDistance - distanceFromRecordCenter >= 40 ? 2
+                        : (reactionDistance - distanceFromRecordCenter >= 20 ? 1 : 0);
+                    new Sound(sounds[soundId]).Play();
                     DetachStroke();
+                }
             }
 
             if (!hasAlreadyStopped)
