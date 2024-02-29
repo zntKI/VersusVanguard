@@ -30,6 +30,9 @@ public class Level : GameObject
     private int randomTimeSpawnTileMS;
     private int counterTimeSpawnTileMS;
 
+    private float tileSpeed;
+    private float strokeTileLength;
+
     //Variables for wait time after a stroke tile has been spawned
     private int leftLaneWaitTimeMS;
     private int rightLaneWaitTimeMS;
@@ -114,6 +117,27 @@ public class Level : GameObject
         timer.Elapsed += (sender, e) => { levelEnded = true; };
         timer.Start();
         PlayBackgroundMusic();
+
+        if (levelConfig["Difficulty"] == "easy")
+        {
+            timeBetweenBeatsMS *= 2;
+            spawnTimeMin = (int)(timeBetweenBeatsMS * 0.9);
+            tileSpeed = 3f;
+            strokeTileLength = 2f;
+        }
+        else if (levelConfig["Difficulty"] == "medium")
+        {
+            timeBetweenBeatsMS = (int)(timeBetweenBeatsMS * 1.5);
+            spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);
+            tileSpeed = 4f;
+            strokeTileLength = 3f;
+        }
+        else if (levelConfig["Difficulty"] == "hard")
+        {
+            spawnTimeMin = (int)(timeBetweenBeatsMS * 0.8);
+            tileSpeed = 4f;
+            strokeTileLength = 5f;
+        }
     }
 
     public void UnLoadLevel()
@@ -170,7 +194,7 @@ public class Level : GameObject
                     //TODO: Fix this later:
                     int dirNum = Utils.Random(1, 3);//Dictates tile's direction
                     string filename = shouldTileMoveLeft ? (dirNum == 1 ? "recordLeftLeft" : "recordLeftRight") : (dirNum == 1 ? "recordRightLeft" : "recordRightRight");
-                    tileToSpawn = new DirectionTile($"levelTilesAssets/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                    tileToSpawn = new DirectionTile($"levelTilesAssets/{filename}.png", dirNum == 1, tileSpeed, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
 
                     //TODO: Figure out a better solution
                     if (shouldTileMoveLeft)
@@ -184,16 +208,16 @@ public class Level : GameObject
                     //TODO: Fix this later:
                     int dirNum = Utils.Random(1, 3);//Dictates tile's direction
                     string filename = shouldTileMoveLeft ? (dirNum == 1 ? "recordStrokeLeftLeft" : "recordStrokeLeftRight") : (dirNum == 1 ? "recordStrokeRightLeft" : "recordStrokeRightRight");
-                    tileToSpawn = new StrokeTile($"levelTilesAssets/{filename}.png", dirNum == 1, 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", 5f/*Fix this later(make it not hardcoded)*/);
+                    tileToSpawn = new StrokeTile($"levelTilesAssets/{filename}.png", dirNum == 1, tileSpeed, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "", strokeTileLength/*Fix this later(make it not hardcoded)*/);
 
                     if (shouldTileMoveLeft)
                     {
-                        leftLaneWaitTimeMS = 5000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
+                        leftLaneWaitTimeMS = (int)strokeTileLength * 1000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
                         leftLaneWaitTimeMSCounter = 0;
                     }
                     else
                     {
-                        rightLaneWaitTimeMS = 5000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
+                        rightLaneWaitTimeMS = (int)strokeTileLength * 1000;/*Link it to the stroke length; Fix this later(make it not hardcoded)*/
                         rightLaneWaitTimeMSCounter = 0;
                     }
 
@@ -202,7 +226,7 @@ public class Level : GameObject
             case 3:
                 {
                     string filename = shouldTileMoveLeft ? "strokeDenyLeft" : "strokeDenyRight";
-                    tileToSpawn = new Tile($"levelTilesAssets/{filename}.png", 4f, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
+                    tileToSpawn = new Tile($"levelTilesAssets/{filename}.png", tileSpeed, leftDiscCoor, rightDiscCoor, shouldTileMoveLeft, "");
 
                     //TODO: Figure out a better solution
                     if (shouldTileMoveLeft)
