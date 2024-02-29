@@ -4,6 +4,7 @@
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level1/art.png</Thumbnail>
         <Song>levelAssets/level1/Beat_1.mp3</Song>
+		<Scores>levelAssets/level1/scores.txt</Scores>
         <Duration>94</Duration>
         <Difficulty>easy</Difficulty>
     </Level1>
