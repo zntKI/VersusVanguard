@@ -59,8 +59,7 @@ namespace GXPEngine
         private void WriteTxt()
         {
             Console.WriteLine("Writing txt file: " + filename);
-            string[] lines = { "First line", "Second line", "Third line" };
-            System.IO.File.WriteAllLines(filename, lines);
+            System.IO.File.WriteAllLines(filename, scores);
         }
 
         private void ReadJson()
@@ -105,11 +104,20 @@ namespace GXPEngine
             return scores;
         }
 
-        public string[] UpdateScores( string[] scores )
+        public void UpdateScores( int newScore )
         {
-            WriteFile();
             ReadFile();
-            return scores;
+            int scoreIndex = 0;
+            foreach (string score in scores)
+            {
+                if (newScore > int.Parse(score))
+                {
+                    scores[scoreIndex] = newScore.ToString();
+                    break;
+                }
+                scoreIndex++;
+            }
+            WriteFile();
         }
     }
 }

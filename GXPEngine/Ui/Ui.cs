@@ -169,7 +169,6 @@ class Ui : GameObject
 
         scoreDisplayer = new EasyDraw(200, 70, false);
         scoreDisplayer.TextSize(15);
-        scoreDisplayer.TextAlign(CenterMode.Center, CenterMode.Center);
         scoreDisplayer.Fill(Color.White);
 
         foreach ( string score in scores )
