@@ -16,6 +16,7 @@ public class Level : GameObject
     private Sound backgroundMusic;
     private SoundChannel backgroundMusicChannel;
     private Timer timer;
+    private FileReader fileReader;
 
     private Vector2 leftDiscCoor = new Vector2(422, 640);
     private Vector2 rightDiscCoor = new Vector2(936, 640);
@@ -142,6 +143,8 @@ public class Level : GameObject
 
     public void UnLoadLevel()
     {
+        fileReader = new FileReader( levelConfig["Scores"] , "txt");
+        fileReader.UpdateScores(score);
         backgroundMusicChannel.Stop();
         levelLoaded = false;
         Ui ui = new Ui();
