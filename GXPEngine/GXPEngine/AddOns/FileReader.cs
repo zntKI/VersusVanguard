@@ -21,6 +21,7 @@ namespace GXPEngine
         XmlDocument xmlDoc = new XmlDocument();
         XmlElement rootNode;
         List<Dictionary<string,string>> menuTiles = new List<Dictionary<string,string>>();
+        string[] scores;
         
 
         public FileReader( string filename, string mode = "xml")
@@ -43,22 +44,23 @@ namespace GXPEngine
             if (mode == "txt")  ReadTxt();
         }
 
-        public List<Dictionary<string,string>> GenerateMenuTiles()
+        private void WriteFile()
         {
-            ReadFile();
-            return menuTiles;
+            // if (mode == "json") WriteJson();
+            // if (mode == "xml")  WriteXml();
+            if (mode == "txt")  WriteTxt();
         }
 
-
-        private void ReadTxt()
+        private void ReadTxt() 
         {
-            Console.WriteLine("Reading txt file: " + filename);
-            string[] lines = System.IO.File.ReadAllLines(filename);
+            scores = System.IO.File.ReadAllLines(filename);
+        }
 
-            foreach (string line in lines)
-            {
-                Console.WriteLine(line);
-            }
+        private void WriteTxt()
+        {
+            Console.WriteLine("Writing txt file: " + filename);
+            string[] lines = { "First line", "Second line", "Third line" };
+            System.IO.File.WriteAllLines(filename, lines);
         }
 
         private void ReadJson()
@@ -89,6 +91,25 @@ namespace GXPEngine
                 }
                 menuTiles.Add(menuTile);
             }
+        }
+        
+        public List<Dictionary<string,string>> GenerateMenuTiles()
+        {
+            ReadFile();
+            return menuTiles;
+        }
+
+        public string[] UpdateScores()
+        {
+            ReadFile();
+            return scores;
+        }
+
+        public string[] UpdateScores( string[] scores )
+        {
+            WriteFile();
+            ReadFile();
+            return scores;
         }
     }
 }
