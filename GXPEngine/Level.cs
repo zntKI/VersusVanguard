@@ -271,7 +271,7 @@ public class Level : GameObject
             {
                 if (!(currentTile is StrokeTile))
                 {
-                    new Sound(sounds[2]).Play();
+                    new Sound(sounds[2]).Play(false, 0, 0.7f);
                 }
 
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectPerfect.png", 200);
@@ -289,7 +289,7 @@ public class Level : GameObject
             {
                 if (!(currentTile is StrokeTile))
                 {
-                    new Sound(sounds[1]).Play();
+                    new Sound(sounds[1]).Play(false, 0, 0.7f);
                 }
 
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectGreat.png", 200);
@@ -306,7 +306,7 @@ public class Level : GameObject
             {
                 if (!(currentTile is StrokeTile))
                 {
-                    new Sound(sounds[0]).Play();
+                    new Sound(sounds[0]).Play(false, 0, 0.7f);
                 }
 
                 reactionParticle = new ReactionParticle("levelTilesAssets/effectNice.png", 200);

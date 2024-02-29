@@ -17,6 +17,7 @@ public class StrokeTile : Tile
 
     private Tuple<bool, int> shouldStopMoving = new Tuple<bool, int>(false, 0);
     private int currentTileStoppedY;
+    private int firstFrameStop;
 
     private bool hasAlreadyStopped;
 
@@ -79,18 +80,19 @@ public class StrokeTile : Tile
                 int keyCode = isLeft ? -1 : 1;
                 shouldStopMoving = new Tuple<bool, int>(true, keyCode);
                 currentTileStoppedY = (int)this.y;
+                firstFrameStop = Time.time;
 
                 if (stroke.parent == this)//Makes sure it detaches the stroke once
                 {
                     int soundId = reactionDistance - distanceFromRecordCenter >= 40 ? 2
                         : (reactionDistance - distanceFromRecordCenter >= 20 ? 1 : 0);
-                    new Sound(sounds[soundId]).Play();
+                    new Sound(sounds[soundId]).Play(false, 0, 0.7f);
                     DetachStroke();
                 }
             }
 
             if (!hasAlreadyStopped)
-                return Time.time % 8 == 0 ? reactionDistance - distanceFromRecordCenter : 0;
+                return (Time.time - firstFrameStop) % 8 == 0 ? reactionDistance - distanceFromRecordCenter : 0;
         }
         return 0;
     }

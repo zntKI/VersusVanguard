@@ -3,9 +3,9 @@
         <Name>level1</Name>
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level1/art.png</Thumbnail>
-        <Song>levelAssets/level1/Beat_1.mp3</Song>
+        <Song>levelAssets/level1/meg.mp3</Song>
 		<Scores>levelAssets/level1/scores.txt</Scores>
-        <Duration>94</Duration>
+        <Duration>45</Duration>
         <Difficulty>easy</Difficulty>
     </Level1>
 
@@ -13,9 +13,9 @@
         <Name>level2</Name>
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level2/art.png</Thumbnail>
-        <Song>levelAssets/level2/song.mp3</Song>
+        <Song>levelAssets/level2/Beat_1.mp3</Song>
         <Scores>levelAssets/level2/scores.txt</Scores>
-        <Duration>15</Duration>
+        <Duration>94</Duration>
         <Difficulty>medium</Difficulty>
     </Level2>
 
@@ -23,9 +23,9 @@
         <Name>level3</Name>
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level3/art.png</Thumbnail>
-        <Song>levelAssets/level3/song.mp3</Song>
+        <Song>levelAssets/level3/beat_2.mp3</Song>
         <Scores>levelAssets/level3/scores.txt</Scores>
-        <Duration>60</Duration>
+        <Duration>67</Duration>
         <Difficulty>hard</Difficulty>
     </Level3>
 </LevelConfig>

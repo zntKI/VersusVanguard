@@ -175,18 +175,18 @@ class Ui : GameObject
         string[] scores = menuTiles[currentTile].levelScores;
         string finalScore = "";
 
-        scoreDisplayer = new EasyDraw(600, 100, false);
+        scoreDisplayer = new EasyDraw(200, 120, false);
         scoreDisplayer.TextFont( Utils.LoadFont("ElectroShackle-Yrvy.ttf", 15) );
-        scoreDisplayer.SetXY(0, 20);
+        scoreDisplayer.TextAlign(CenterMode.Center, CenterMode.Center);
+        scoreDisplayer.SetXY(0, 40);
         scoreDisplayer.Fill(Color.White);
 
-        foreach ( string score in scores )
+        for (int i = 0; i < scores.Length; i++)
         {
-            // Console.WriteLine( score );
-            finalScore = finalScore + score + "\n";
+            finalScore += $"#{i+1}  {scores[i]} \n";
         }
 
-        scoreDisplayer.Text(this.scoreText+"\n"+finalScore, true);
+        scoreDisplayer.Text(this.scoreText+"\n\n"+finalScore, true);
         parent.AddChild(scoreDisplayer);
     }
 
