@@ -14,6 +14,7 @@ class Ui : GameObject
     Sprite[] backgroundTiles = new Sprite[2];
     MenuTile[] menuTiles = new MenuTile[3];
     EasyDraw scoreDisplayer;
+    string scoreText = "ScorE Board:";
     int tilesToRender;
     int[] renderedTiles;
     int currentTile = 0;
@@ -167,8 +168,9 @@ class Ui : GameObject
         string[] scores = menuTiles[currentTile].levelScores;
         string finalScore = "";
 
-        scoreDisplayer = new EasyDraw(200, 70, false);
-        scoreDisplayer.TextSize(15);
+        scoreDisplayer = new EasyDraw(600, 100, false);
+        scoreDisplayer.TextFont( Utils.LoadFont("ElectroShackle-Yrvy.ttf", 15) );
+        scoreDisplayer.SetXY(0, 20);
         scoreDisplayer.Fill(Color.White);
 
         foreach ( string score in scores )
@@ -177,7 +179,7 @@ class Ui : GameObject
             finalScore = finalScore + score + "\n";
         }
 
-        scoreDisplayer.Text(finalScore, true);
+        scoreDisplayer.Text(this.scoreText+"\n"+finalScore, true);
         parent.AddChild(scoreDisplayer);
     }
 
