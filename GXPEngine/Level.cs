@@ -41,6 +41,7 @@ public class Level : GameObject
 
     private int score;
     private EasyDraw scoreDisplayer;//Temporary way to display score (think of a better way after the playtesting session)
+    private Font font;
 
     private bool levelLoaded = false;
     private bool levelEnded = false;
@@ -71,12 +72,15 @@ public class Level : GameObject
         bgTopChildIndex = bgTop.Index;
 
         //Temporary way to display score (think of a better way after the playtesting session)
-        scoreDisplayer = new EasyDraw(200, 70, false);
-        scoreDisplayer.TextSize(20);
+        font = Utils.LoadFont("levelTilesAssets/ElectroShackle-Yrvy.ttf", 30);
+
+        scoreDisplayer = new EasyDraw(150, 70, false);
+        scoreDisplayer.TextFont(font);
         scoreDisplayer.TextAlign(CenterMode.Center, CenterMode.Center);
-        scoreDisplayer.Fill(Color.Black);
-        scoreDisplayer.Text($"Score: {score}", true);
-        scoreDisplayer.SetXY(0, 0);
+        scoreDisplayer.Fill(114, 21, 175);
+        scoreDisplayer.Text($"{score}", true);
+        scoreDisplayer.SetOrigin(scoreDisplayer.width / 2, scoreDisplayer.height / 2);
+        scoreDisplayer.SetXY(685, 570);
         AddChild(scoreDisplayer);
 
         counterTimeSpawnTileMS = 0;
@@ -92,7 +96,7 @@ public class Level : GameObject
         ManageTileSpawning();
         CheckForInput();
 
-        scoreDisplayer.Text($"Score: {score}", true);//Temporary way to display score (think of a better way after the playtesting session)
+        scoreDisplayer.Text($"{score}", true);//Temporary way to display score (think of a better way after the playtesting session)
     }
 
     public void SetLevelAssets()

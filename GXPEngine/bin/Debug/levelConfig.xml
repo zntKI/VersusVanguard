@@ -4,7 +4,7 @@
         <Background>background_sketch.png</Background>
         <Thumbnail>levelAssets/level1/art.png</Thumbnail>
         <Song>levelAssets/level1/Beat_1.mp3</Song>
-        <Duration>60</Duration>
+        <Duration>94</Duration>
         <Difficulty>easy</Difficulty>
     </Level1>
 
