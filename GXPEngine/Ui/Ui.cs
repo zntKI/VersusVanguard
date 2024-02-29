@@ -169,6 +169,7 @@ class Ui : GameObject
 
         scoreDisplayer = new EasyDraw(200, 70, false);
         scoreDisplayer.TextSize(15);
+        scoreDisplayer.TextFont( new Font("Electro Shackle Font", 15) );
         scoreDisplayer.Fill(Color.White);
 
         foreach ( string score in scores )
