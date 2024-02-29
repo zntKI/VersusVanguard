@@ -9,6 +9,7 @@ class Ui : GameObject
     // menuTile array
     Sprite titleImage;
     Sprite backgroundImage;
+    Sprite extraInstructions;
     Sprite[] backgroundTiles = new Sprite[2];
     MenuTile[] menuTiles = new MenuTile[3];
     int tilesToRender;
@@ -32,6 +33,7 @@ class Ui : GameObject
         // NOTE : This is a placeholder for the menuTiles untill the json configs are implemented
         titleImage = new Sprite("uiAssets/Title.png");
         backgroundImage = new Sprite("uiAssets/background.png");
+        extraInstructions = new Sprite("uiAssets/extraInstructions.png");
         LoadMenuTiles();
     }
 
@@ -131,6 +133,7 @@ class Ui : GameObject
         parent.AddChild( titleImage );
         parent.AddChild( backgroundTiles[0] );
         parent.AddChild( backgroundTiles[1] );
+        parent.AddChild(extraInstructions);
 
         // set amount of tiles to render
         renderedTiles = new int[tilesToRender];
