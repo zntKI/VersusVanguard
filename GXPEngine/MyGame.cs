@@ -23,36 +23,10 @@ public class MyGame : Game
 
     void Update()
     {
-        //Console.WriteLine(ControllerManager.GetRightRecordValue());
     }
 
     static void Main()
     {
-        //controllerManager = new ControllerManager();
-        /*
-        SerialPort port = new SerialPort();
-        port.PortName = "COM3";
-        port.BaudRate = 9600;
-        port.RtsEnable = true;
-        port.DtrEnable = true;
-        port.Open();
-        while (true)
-        {
-            string line = port.ReadLine(); // read separated values
-                                           //string line = port.ReadExisting(); // when using characters
-            if (line != "")
-            {
-                Console.WriteLine("Read from port: " + line);
-
-            }
-
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo key = Console.ReadKey();
-                port.Write(key.KeyChar.ToString());  // writing a string to Arduino
-            }
-        }*/
-
         new MyGame().Start();
     }
 }
