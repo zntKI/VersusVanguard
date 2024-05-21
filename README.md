@@ -1,18 +1,23 @@
 # DJ Rush
 
-A 2D arcade game, product of a group project, in which Engineers, Designers and Artist come together to develop a game in 2 weeks.
-The game supports control input handling from a custom-made arcade controller.
+A 2D arcade rhythm game, product of a group project, in which Engineers, Designers and Artist come together to develop a game in 2 weeks.
 
 <p align="center">
   <img src="Media/demo.gif"><br/>
   *<i>Low frame rate caused by gif limitations</i>*
 </p>
 
+The game supports control input handling from a custom-made arcade controller.
+
+<p align="center">
+  <img width="500px" src="Media/controller.jpg"><br/>
+</p>
+
 ## Overview
 
-In the heart of a mystical cave, an elemental spirit goes on a quest to reunite with the mother spirit, Gaia, to help him restore his wings.
-The spirit navigates through a labyrinthine world filled with obstacles and floating rocks.
-Possessing the remarkable ability to change between the elemental states of fire and water, it ascends the towering walls, each step a delicate balance between gaining power and losing it.
+A game in which the player is a DJ and by utilizing an arcade DJ station, he/she must try to keep track of mix tiles that come in.
+The player's task is to perform the best he/she can by scoring as much points as possible, therefore satisfying the crowd and keeping the vibe going.
+For each level, there is a score board, storing the best performances of other players that have also played the game.
 
 Developed by utilizing the GxP 2D Game Engine, provided by the institution.
 
@@ -20,41 +25,27 @@ Developed by utilizing the GxP 2D Game Engine, provided by the institution.
 
 ### Gameplay (Engineers)
 
-- **Player Movement:** Launching itself from place to place
-- **Player Element Swtich:** Switching between Ice and Fire element
-- **Walls:** Growing or shrinking in size depending on whether the element of the wall and that of the player match or not
-- **Obstacles:**
-  1. Player element and obstacle element match:
-     - If player mass is lower than the obstacle's, the player sticks and grows until it reaches the given mass, then it starts sliding
-     - If not, it starts sliding immediately
-  2. Player element and obstacle element do not match:
-     - If player mass is lower than the obstacle's, the player dies
-     - If not, the obstacle gets destroyed and the player's mass gets decreased by the obstacle's
+- **Normal tiles:** Depending on the side, which the given tile is coming from, the player should rotate the corresponding controller disc towards the direction indicated on the tile itself
+- **Stroke tiles:** Similar to the normal tiles, however, now the player would have to keep spinning in the correct direction until the end of the stroke in order to get the most points possible
+- **Deny tiles:** When deny tiles come towards the player, he/she can "avoid" them by pressing on the red deny button at the center of the controller
 
-### UI/UX, SFX, VFX (Designers and Artists)
+### UI/UX, SFX, VFX (Artist)
 
-- **Start and end screen**
+- **Songs menu**
 - **HUD:**
-  1. Size indicator
   2. Score
 - **Sounds**
-  1. Background sounds
+  1. Songs
   2. Sound effects
 - **Particle:**
-  1. Smoke particle when the obstacle gets destroyed
- 
-### Level editing
-Done by using Tiled level editor
+  1. Reaction time particles
 
 ## Controls
 
-- **Player movement:**
-  1. Press and hold the left mouse button and by dragging the mouse, modify the launch direction and power
-  2. When done, release the left mouse button to launch yourself
-- **Player element switch:** Press the right mouse button to switch elements
+- Player can move the DJ discs left and right and press the red button at the center of the controller
 
-## Level Design
-Done by: 
+## Controller design and build
+Done by: @Johnny Rest van der
 
 ## Art
-Done by: 
+Done by: @Sami Ljatifi
