@@ -25,6 +25,8 @@ Developed by utilizing the GxP 2D Game Engine, provided by the institution.
 
 ### Gameplay (Engineers)
 
+- **Main menu:** Displaying all the levels and also switching between them
+- **Score board:** Reading and writing to a file with high-scores
 - **Normal tiles:** Depending on the side, which the given tile is coming from, the player should rotate the corresponding controller disc towards the direction indicated on the tile itself
 - **Stroke tiles:** Similar to the normal tiles, however, now the player would have to keep spinning in the correct direction until the end of the stroke in order to get the most points possible
 - **Deny tiles:** When deny tiles come towards the player, he/she can "avoid" them by pressing on the red deny button at the center of the controller
