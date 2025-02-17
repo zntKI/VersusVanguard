@@ -19,7 +19,7 @@ A game in which the player is a DJ and by utilizing an arcade DJ station, he/she
 The player's task is to perform the best he/she can by scoring as much points as possible, therefore satisfying the crowd and keeping the vibe going.
 For each level, there is a score board, storing the best performances of other players that have also played the game.
 
-Developed by utilizing the GxP 2D Game Engine, provided by the institution.
+Developed by utilizing the [GXP 2D Game Engine](https://github.com/zntKI/VersusVanguard/tree/main/GXPEngine/GXPEngine) - a code-based small engine designed and developed by the teachers to introduce students to how a game engine may opperate.
 
 ## Features
 
